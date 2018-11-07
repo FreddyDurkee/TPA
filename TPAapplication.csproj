@@ -68,6 +68,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\TypeMetadata.cs" />
+    <Compile Include="Model\FieldMetadata.cs" />
+    <Compile Include="Model\MethodMetadata.cs" />
+    <Compile Include="Model\ParameterMetadata.cs" />
+    <Compile Include="Model\PropertyMetadata.cs" />
+    <Compile Include="Model\AssemblyMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
