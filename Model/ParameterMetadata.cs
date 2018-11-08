@@ -8,8 +8,10 @@ namespace TPAapplication.Model
 {
     class ParameterMetadata
     {
+        #region private
         private string name;
         private TypeMetadata type;
+        #endregion
 
         public ParameterMetadata(string name, TypeMetadata type)
         {

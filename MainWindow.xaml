@@ -1,12 +1,15 @@
 ﻿<Window x:Class="TPAapplication.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TPAapplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="629.2" Width="998.4">
+    <Grid Margin="30,26,30,30">
+        <TreeView HorizontalAlignment="Left" Height="523" VerticalAlignment="Top" Width="392" Margin="10,10,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="426,10,0,0" TextWrapping="Wrap" Text="Choose assambly" VerticalAlignment="Top" Height="39" Width="496"/>
+        <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" Margin="782,84,0,0" VerticalAlignment="Top" Width="97" Height="36" Click="Button_Click"/>
+
     </Grid>
 </Window>

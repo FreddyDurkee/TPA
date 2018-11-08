@@ -8,9 +8,11 @@ namespace TPAapplication.Model
 {
     class PropertyMetadata
     {
+        #region private
         private string name;
         private TypeMetadata type;
         private List<MethodMetadata> accessorList;
+        #endregion
 
         public PropertyMetadata(string name, TypeMetadata propertyType)
         {
