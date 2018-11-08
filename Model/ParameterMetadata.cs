@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TPAapplication.Model
 {
-    class ParameterMetadata
+    public class ParameterMetadata
     {
         #region private
         private string name;

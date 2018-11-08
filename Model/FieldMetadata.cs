@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TPAapplication.Model
 {
-    class FieldMetadata
+    public class FieldMetadata
     {
         #region private
         private string name;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TPAapplication.Model
 {
 
-    class MethodMetadata
+    public class MethodMetadata
     {
         #region private
         private string name;

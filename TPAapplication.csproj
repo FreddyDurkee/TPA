@@ -15,14 +15,14 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,8 +55,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ModelAPI\ITypeMetadata.cs" />
+    <Compile Include="Model\MetadataModel.cs" />
+    <Compile Include="ViewModelAPI\ITreeViewItem.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
+    <Compile Include="ViewModel\TreeViewType.cs" />
+    <Compile Include="ViewModel\TreeViewField.cs" />
     <Compile Include="ViewModel\TreeViewItem.cs" />
+    <Compile Include="ViewModel\TreeViewMethod.cs" />
+    <Compile Include="ViewModel\TreeViewParameter.cs" />
+    <Compile Include="ViewModel\TreeViewProperty.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using TPAapplication.Model;
 
 namespace TPAapplication.ViewModel
 {
@@ -48,7 +49,8 @@ namespace TPAapplication.ViewModel
 
         private void TreeViewLoaded()
         {
-            TreeViewItem rootItem = new TreeViewItem { Name = PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1) };
+            MetadataModel model = new MetadataModel(PathVariable);
+            TreeViewItem rootItem = new TreeViewItem(model,true) { Name = PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1) };
             HierarchicalAreas.Add(rootItem);
         }
 

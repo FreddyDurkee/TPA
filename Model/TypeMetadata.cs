@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TPAapplication.Model
 
 {
-    class TypeMetadata : ModelAPI.ITypeMetadata
+    public class TypeMetadata : ModelAPI.ITypeMetadata
     {
         #region private
         private List<MethodMetadata> methods;

@@ -4,14 +4,23 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TPAapplication.Model;
+using TPAapplication.ModelAPI;
+using TPAapplication.ViewModelAPI;
 
 namespace TPAapplication.ViewModel
 {
-    public class TreeViewItem
+    public class TreeViewItem : ITreeViewItem
     {
-        public TreeViewItem()
+        public TreeViewItem(MetadataModel model, bool hasChildren)
         {
-            Children = new ObservableCollection<TreeViewItem>() { null };
+            if (hasChildren) {
+                Children = new ObservableCollection<TreeViewItem>() { null };
+            }
+            else {
+                Children = new ObservableCollection<TreeViewItem>();
+            }
+            this.model = model;
             this.m_WasBuilt = false;
         }
         public string Name { get; set; }
@@ -29,18 +38,16 @@ namespace TPAapplication.ViewModel
                 m_WasBuilt = true;
             }
         }
+        protected MetadataModel model;
 
         private bool m_WasBuilt;
         private bool m_IsExpanded;
-        private void BuildMyself()
+        virtual protected void BuildMyself()
         {
-            Random random = new Random();
-            //foreach (IMyClass c in model.getClasses())
-            //{
-            //    Children.Add(new TreeViewItem(model, c));
-            //}
-            for (int i = 0; i < random.Next(7); i++)
-                this.Children.Add(new TreeViewItem() { Name = "sample" + i });
+            foreach (TypeMetadata c in model.getClasses())
+            {
+                Children.Add(new TreeViewType(model, c));
+            }
         }
 
     }

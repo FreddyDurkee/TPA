@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TPAapplication.Model
 {
-    class PropertyMetadata
+    public class PropertyMetadata
     {
         #region private
         private string name;
@@ -29,6 +29,11 @@ namespace TPAapplication.Model
         public string getName()
         {
             return name;
+        }
+
+        public List<MethodMetadata> getAccessorList()
+        {
+            return accessorList;
         }
 
         public bool anyChildren()

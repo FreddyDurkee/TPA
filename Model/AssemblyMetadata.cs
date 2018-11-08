@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TPAapplication.Model
 {
-    class AssemblyMetadata
+    public class AssemblyMetadata
     {
     }
 }
