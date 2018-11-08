@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TPAapplication.ViewModel;
 
 namespace TPAapplication
 {
@@ -23,6 +24,7 @@ namespace TPAapplication
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModel.ViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -14,28 +14,28 @@ namespace TPAapplication.ViewModel
     public class ViewModel : INotifyPropertyChanged
     {
 
-        #region constructor
-        public ViewModel()
-        {
-            HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-            Click_Button = new DelegateCommand(LoadDLL);
-            Click_Browse = new DelegateCommand(Browse);
-        }
-        #endregion
-
         #region DataContext
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
-        public ICommand Click_Button { get; }
+        public ICommand Click_ShowTreeView { get; }
+        #endregion
+
+        #region constructor
+        public ViewModel()
+        {
+            HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            Click_ShowTreeView = new DelegateCommand(LoadDLL);
+            Click_Browse = new DelegateCommand(Browse);
+        }
         #endregion
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName_)
+        private void RaisePropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 
@@ -45,11 +45,13 @@ namespace TPAapplication.ViewModel
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
                 TreeViewLoaded();
         }
+
         private void TreeViewLoaded()
         {
             TreeViewItem rootItem = new TreeViewItem { Name = PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1) };
             HierarchicalAreas.Add(rootItem);
         }
+
         private void Browse()
         {
             OpenFileDialog test = new OpenFileDialog()

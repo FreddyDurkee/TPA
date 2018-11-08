@@ -35,6 +35,10 @@ namespace TPAapplication.ViewModel
         private void BuildMyself()
         {
             Random random = new Random();
+            //foreach (IMyClass c in model.getClasses())
+            //{
+            //    Children.Add(new TreeViewItem(model, c));
+            //}
             for (int i = 0; i < random.Next(7); i++)
                 this.Children.Add(new TreeViewItem() { Name = "sample" + i });
         }

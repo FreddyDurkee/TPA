@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TPAapplication.Model
 
 {
-    class TypeMetadata
+    class TypeMetadata : ModelAPI.ITypeMetadata
     {
         #region private
         private List<MethodMetadata> methods;
@@ -22,6 +22,11 @@ namespace TPAapplication.Model
             properties = new List<PropertyMetadata>();
             fields = new List<FieldMetadata>();
             this.name = name;
+        }
+
+        public string getName()
+        {
+            return name;
         }
 
         public List<MethodMetadata> getMethodsList()
@@ -49,5 +54,6 @@ namespace TPAapplication.Model
                 return true;
             return false;
         }
+
     }
 }
