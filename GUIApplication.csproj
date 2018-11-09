@@ -54,17 +54,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ModelAPI\ITypeMetadata.cs" />
-    <Compile Include="Model\MetadataModel.cs" />
-    <Compile Include="ViewModelAPI\ITreeViewItem.cs" />
-    <Compile Include="ViewModel\DelegateCommand.cs" />
-    <Compile Include="ViewModel\TreeViewType.cs" />
-    <Compile Include="ViewModel\TreeViewField.cs" />
-    <Compile Include="ViewModel\TreeViewItem.cs" />
-    <Compile Include="ViewModel\TreeViewMethod.cs" />
-    <Compile Include="ViewModel\TreeViewParameter.cs" />
-    <Compile Include="ViewModel\TreeViewProperty.cs" />
-    <Compile Include="ViewModel\ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,12 +68,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\TypeMetadata.cs" />
-    <Compile Include="Model\FieldMetadata.cs" />
-    <Compile Include="Model\MethodMetadata.cs" />
-    <Compile Include="Model\ParameterMetadata.cs" />
-    <Compile Include="Model\PropertyMetadata.cs" />
-    <Compile Include="Model\AssemblyMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,5 +93,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <Import Project="TPApplicationCore\TPApplicationCore.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPAapplication.Properties
+namespace TPAapplicationCore.Properties
 {
 
 

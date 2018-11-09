@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using TPAapplication.Model;
+using TPApplicationCore.Model;
 
-namespace TPAapplication.ViewModel
+namespace TPApplicationCore.ViewModel
 {
     public class ViewModel : INotifyPropertyChanged
     {
@@ -40,17 +40,20 @@ namespace TPAapplication.ViewModel
         }
         #endregion
 
-        #region private
-        private void LoadDLL()
+        #region public
+        public void LoadDLL()
         {
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
                 TreeViewLoaded();
         }
+        #endregion
 
+        #region private
         private void TreeViewLoaded()
         {
             MetadataModel model = new MetadataModel(PathVariable);
             TreeViewItem rootItem = new TreeViewItem(model,true) { Name = PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1) };
+            Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "New model loaded:" + rootItem.Name);
             HierarchicalAreas.Add(rootItem);
         }
 

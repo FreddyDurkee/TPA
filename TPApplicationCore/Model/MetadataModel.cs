@@ -5,10 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using TPAapplication.ModelAPI;
+using TPApplicationCore.ViewModelAPI;
 
 
-namespace TPAapplication.Model
+namespace TPApplicationCore.Model
 {
     public class MetadataModel
     {
@@ -64,7 +64,7 @@ namespace TPAapplication.Model
         {
 
            TypeMetadata classObj;
-            Console.Write(type.Name + " ");
+            Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Loading class: " + type.Name);
 
             if (listaKlas.TryGetValue(type.Name, out classObj))
             {
@@ -73,14 +73,7 @@ namespace TPAapplication.Model
             else
             {
                 classObj = new TypeMetadata(type.Name);
-                try
-                {
-                    listaKlas.Add(type.Name, classObj);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                listaKlas.Add(type.Name, classObj);
             }
             if (type.IsPrimitive != true)
             {
@@ -190,9 +183,9 @@ namespace TPAapplication.Model
             }
         }
 
-        public List<ITypeMetadata> getClasses()
+        public List<TypeMetadata> getClasses()
         {
-            List<ITypeMetadata> tmpList = new List<ITypeMetadata>();
+            List<TypeMetadata> tmpList = new List<TypeMetadata>();
             foreach (KeyValuePair<string, TypeMetadata> k in listaKlas)
             {
                 tmpList.Add(k.Value);
@@ -205,7 +198,7 @@ namespace TPAapplication.Model
             return pole.getType();
         }
 
-        public ITypeMetadata getClass(PropertyMetadata property)
+        public TypeMetadata getClass(PropertyMetadata property)
         {
             return property.getType();
         }

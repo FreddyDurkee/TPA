@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPAapplication.Model
+namespace TPA_TUI_application
 {
-    public class AssemblyMetadata
+    class Program
     {
+        static void Main(string[] args)
+        {
+        }
     }
 }

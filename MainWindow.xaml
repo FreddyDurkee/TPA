@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TPAapplication"
+        xmlns:local="clr-namespace:TPApplicationCore"
         Title="MainWindow" Height="629.2" Width="998.4">
     <Grid Margin="32,26,28,30.2">
         <TreeView HorizontalAlignment="Left" Height="523" VerticalAlignment="Top" Width="392" Margin="10,10,0,0" ItemsSource="{Binding  HierarchicalAreas}">

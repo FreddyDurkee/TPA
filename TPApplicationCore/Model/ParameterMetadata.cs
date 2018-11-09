@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPAapplication.Model
+namespace TPApplicationCore.Model
 {
     public class ParameterMetadata
     {

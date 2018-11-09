@@ -4,12 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using TPAapplication.Model;
-using TPAapplication.ViewModelAPI;
+using TPApplicationCore.Model;
+using TPApplicationCore.ViewModelAPI;
 
-namespace TPAapplication.ViewModel
+namespace TPApplicationCore.ViewModel
 {
     public class TreeViewField : TreeViewItem
 {

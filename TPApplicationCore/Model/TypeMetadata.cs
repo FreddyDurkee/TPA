@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPAapplication.Model
+namespace TPApplicationCore.Model
 
 {
-    public class TypeMetadata : ModelAPI.ITypeMetadata
+    public class TypeMetadata
     {
         #region private
         private List<MethodMetadata> methods;
