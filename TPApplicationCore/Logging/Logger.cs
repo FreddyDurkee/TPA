@@ -6,7 +6,7 @@ using System.Text;
 namespace TPApplicationCore.Logging
 {
 
-    class Logger
+    public class Logger
     {
         private static TraceSource source = new TraceSource("TPApplicationLogger");
 

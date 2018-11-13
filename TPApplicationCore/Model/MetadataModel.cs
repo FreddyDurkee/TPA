@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using TPApplicationCore.ViewModelAPI;
 
 
@@ -12,21 +10,21 @@ namespace TPApplicationCore.Model
 {
     public class MetadataModel
     {
-        private Dictionary<string,TypeMetadata> listaKlas;
+        private Dictionary<string,TypeMetadata> typeList;
 
-        public Dictionary<string,TypeMetadata> ListaKlas
+        public Dictionary<string, TypeMetadata> typesList
         {
-            get { return listaKlas; }
+            get { return typeList; }
         }
 
-        public TypeMetadata getClass(ParameterMetadata parametr)
+        public TypeMetadata getType(ParameterMetadata parameter)
         {
-            return parametr.getType();
+            return parameter.getType();
         }
 
-        public List<FieldMetadata> getFields(TypeMetadata klasa)
+        public List<FieldMetadata> getFields(TypeMetadata type)
         {
-            return klasa.getFieldsList().ToList();
+            return type.getFieldsList().ToList();
         }
 
         internal List<MethodMetadata> getAccessors(PropertyMetadata property)
@@ -34,171 +32,172 @@ namespace TPApplicationCore.Model
             return property.getAccessorList();
         }
 
-        public List<MethodMetadata> getMethods(TypeMetadata klasa)
+        public List<MethodMetadata> getMethods(TypeMetadata type)
         {
-            return klasa.getMethodsList().ToList();
+            return type.getMethodsList().ToList();
         }
 
-        public List<ParameterMetadata> getParameters(MethodMetadata metoda)
+        public List<ParameterMetadata> getParameters(MethodMetadata method)
         {
-            return metoda.getParameterList().ToList();
+            return method.getParameterList().ToList();
         }
 
-        public List<PropertyMetadata> getProperties(TypeMetadata klasa)
+        public List<PropertyMetadata> getProperties(TypeMetadata type)
         {
-            return klasa.getPropertiesList().ToList();
+            return type.getPropertiesList().ToList();
         }
 
         public MetadataModel(string assemblyFile)
         {
-            listaKlas = new Dictionary<string,TypeMetadata>();
+            typeList = new Dictionary<string,TypeMetadata>();
             Type[] typy = Assembly.LoadFrom(assemblyFile).GetTypes();
             foreach (Type t in typy)
             {
-                buildClass(t);
+                buildTypes(t);
             }
         }
 
 
-        public void buildClass(Type type)
+        public void buildTypes(Type type)
         {
-
-           TypeMetadata classObj;
+           TypeMetadata typeMetadata;
             Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Loading class: " + type.Name);
 
-            if (listaKlas.TryGetValue(type.Name, out classObj))
+            if (typeList.TryGetValue(type.Name, out typeMetadata))
             {
                 //DO NOTHING
             }
             else
             {
-                classObj = new TypeMetadata(type.Name);
-                listaKlas.Add(type.Name, classObj);
+                typeMetadata = new TypeMetadata(type.Name);
+                typeList.Add(type.Name, typeMetadata);
             }
             if (type.IsPrimitive != true)
             {
-                buildMethods(classObj, type);
-                buildFields(classObj, type);
-                buildProperites(classObj, type);
+                buildMethods(typeMetadata, type);
+                buildFields(typeMetadata, type);
+                buildProperites(typeMetadata, type);
             }
 
         }
-        public void buildMethods(TypeMetadata klasa, Type type)
+        public void buildMethods(TypeMetadata typeMetadata, Type type)
         {
             MethodInfo[] metody = type.GetMethods();
             MethodMetadata metoda;
             foreach (MethodInfo index in metody)
             {
-               TypeMetadata classObj;
-                if (listaKlas.TryGetValue(index.ReturnType.Name, out classObj))
+               TypeMetadata typeObj;
+                if (typeList.TryGetValue(index.ReturnType.Name, out typeObj))
                 {
-                    metoda = new MethodMetadata(index.Name, classObj);
+                    metoda = new MethodMetadata(index.Name, typeObj);
                 }
                 else
                 {
-                    classObj = new TypeMetadata(index.ReturnType.Name);
-                    metoda = new MethodMetadata(index.Name, classObj);
+                    typeObj = new TypeMetadata(index.ReturnType.Name);
+                    metoda = new MethodMetadata(index.Name, typeObj);
                 }
-                klasa.getMethodsList().Add(metoda);
+                typeMetadata.getMethodsList().Add(metoda);
                 buildParameters(metoda, index);
 
             }
         }
         public void buildMethods(PropertyMetadata property, PropertyInfo type)
         {
-            MethodInfo[] metody = type.GetAccessors(true);
-            MethodMetadata metoda;
-            foreach (MethodInfo index in metody)
+            MethodInfo[] methods = type.GetAccessors(true);
+            MethodMetadata method;
+            foreach (MethodInfo index in methods)
             {
-               TypeMetadata classObj;
-                if (listaKlas.TryGetValue(index.ReturnType.Name, out classObj))
+               TypeMetadata typeMetadata;
+                if (typeList.TryGetValue(index.ReturnType.Name, out typeMetadata))
                 {
-                    metoda = new MethodMetadata(index.Name, classObj);
+                    method = new MethodMetadata(index.Name, typeMetadata);
                 }
                 else
                 {
-                    classObj = new TypeMetadata(index.ReturnType.Name);
-                    metoda = new MethodMetadata(index.Name, classObj);
+                    typeMetadata = new TypeMetadata(index.ReturnType.Name);
+                    method = new MethodMetadata(index.Name, typeMetadata);
                 }
-                buildParameters(metoda, index);
+                buildParameters(method, index);
 
             }
         }
-        public void buildFields(TypeMetadata klasa, Type type)
+        public void buildFields(TypeMetadata typeMetadata, Type type)
         {
             FieldInfo[] fields = type.GetFields();
             foreach (FieldInfo f in fields)
             {
                 FieldMetadata field;
-               TypeMetadata classObj;
-                if (listaKlas.TryGetValue(f.Name, out classObj))
+               TypeMetadata typeObj;
+                if (typeList.TryGetValue(f.Name, out typeObj))
                 {
-                    field = new FieldMetadata(f.Name, classObj);
+                    field = new FieldMetadata(f.Name, typeObj);
                 }
                 else
                 {
-                    classObj = new TypeMetadata(f.FieldType.Name);
-                    field = new FieldMetadata(f.Name, classObj);
+                    typeObj = new TypeMetadata(f.FieldType.Name);
+                    field = new FieldMetadata(f.Name, typeObj);
                 }
-                klasa.getFieldsList().Add(field);
+                typeMetadata.getFieldsList().Add(field);
             }
         }
+
+
         public void buildProperites(TypeMetadata klasa, Type type)
         {
             PropertyInfo[] properties = type.GetProperties();
             foreach (PropertyInfo p in properties)
             {
                 PropertyMetadata property;
-               TypeMetadata classObj;
-                if (listaKlas.TryGetValue(p.Name, out classObj))
+               TypeMetadata typeObj;
+                if (typeList.TryGetValue(p.Name, out typeObj))
                 {
-                    property = new PropertyMetadata(p.Name, classObj);
+                    property = new PropertyMetadata(p.Name, typeObj);
                 }
                 else
                 {
-                    classObj = new TypeMetadata(p.PropertyType.Name);
-                    property = new PropertyMetadata(p.Name, classObj);
+                    typeObj = new TypeMetadata(p.PropertyType.Name);
+                    property = new PropertyMetadata(p.Name, typeObj);
                 }
                 buildMethods(property, p);
                 klasa.getPropertiesList().Add(property);
             }
         }
-        public void buildParameters(MethodMetadata metoda, MethodInfo info)
+        public void buildParameters(MethodMetadata method, MethodInfo info)
         {
             ParameterInfo[] parameters = info.GetParameters();
             foreach (ParameterInfo p in parameters)
             {
                 ParameterMetadata parameter;
-               TypeMetadata classObj;
-                if (listaKlas.TryGetValue(p.Name, out classObj))
+               TypeMetadata typeObj;
+                if (typeList.TryGetValue(p.Name, out typeObj))
                 {
-                    parameter = new ParameterMetadata(p.Name, classObj);
+                    parameter = new ParameterMetadata(p.Name, typeObj);
                 }
                 else
                 {
-                    classObj = new TypeMetadata(p.ParameterType.Name);
-                    parameter = new ParameterMetadata(p.Name, classObj);
+                    typeObj = new TypeMetadata(p.ParameterType.Name);
+                    parameter = new ParameterMetadata(p.Name, typeObj);
                 }
-                metoda.getParameterList().Add(parameter);
+                method.getParameterList().Add(parameter);
             }
         }
 
-        public List<TypeMetadata> getClasses()
+        public List<TypeMetadata> getTypes()
         {
             List<TypeMetadata> tmpList = new List<TypeMetadata>();
-            foreach (KeyValuePair<string, TypeMetadata> k in listaKlas)
+            foreach (KeyValuePair<string, TypeMetadata> k in typeList)
             {
                 tmpList.Add(k.Value);
             }
             return tmpList;
         }
 
-        public TypeMetadata getClass(FieldMetadata pole)
+        public TypeMetadata getType(FieldMetadata field)
         {
-            return pole.getType();
+            return field.getType();
         }
 
-        public TypeMetadata getClass(PropertyMetadata property)
+        public TypeMetadata getType(PropertyMetadata property)
         {
             return property.getType();
         }

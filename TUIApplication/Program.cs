@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPA_TUI_application
+namespace TUIApplication
 {
     class Program
     {
         static void Main(string[] args)
         {
+            TextualProcessor textualProcessor = new TextualProcessor();
+            textualProcessor.run();
         }
     }
 }

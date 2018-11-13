@@ -14,20 +14,20 @@ namespace TPApplicationCore.ViewModel
 
         private FieldMetadata reflectionReference;
 
-        private void buildMyself()
+        private void createExtension()
         {
-            TypeMetadata classReference = model.getClass(reflectionReference);
-            if (classReference == null)
+            TypeMetadata typeReference = model.getType(reflectionReference);
+            if (typeReference == null)
                 return;
-            foreach (FieldMetadata field in model.getFields(classReference))
+            foreach (FieldMetadata field in model.getFields(typeReference))
             {
                 Children.Add(new TreeViewField(model, field));
             }
-            foreach (PropertyMetadata property in model.getProperties(classReference))
+            foreach (PropertyMetadata property in model.getProperties(typeReference))
             {
                 Children.Add(new TreeViewProperty(model, property));
             }
-            foreach (MethodMetadata method in model.getMethods(classReference))
+            foreach (MethodMetadata method in model.getMethods(typeReference))
             {
                 Children.Add(new TreeViewMethod(model, method));
             }
@@ -36,7 +36,7 @@ namespace TPApplicationCore.ViewModel
         public TreeViewField(MetadataModel model, FieldMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
         {
             this.reflectionReference = reflectionReference;
-            Name = model.getClass(reflectionReference).getName() + " " + reflectionReference.getName();              
+            Name = model.getType(reflectionReference).getName() + " " + reflectionReference.getName();              
         }
      
     }

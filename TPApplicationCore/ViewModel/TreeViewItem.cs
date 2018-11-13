@@ -22,8 +22,11 @@ namespace TPApplicationCore.ViewModel
             this.model = model;
             this.m_WasBuilt = false;
         }
+
         public string Name { get; set; }
+
         public ObservableCollection<TreeViewItem> Children { get; set; }
+
         public bool IsExpanded
         {
             get { return m_IsExpanded; }
@@ -33,7 +36,7 @@ namespace TPApplicationCore.ViewModel
                 if (m_WasBuilt)
                     return;
                 Children.Clear();
-                BuildMyself();
+                createExtension();
                 m_WasBuilt = true;
             }
         }
@@ -41,9 +44,9 @@ namespace TPApplicationCore.ViewModel
 
         private bool m_WasBuilt;
         private bool m_IsExpanded;
-        virtual protected void BuildMyself()
+        virtual protected void createExtension()
         {
-            foreach (TypeMetadata c in model.getClasses())
+            foreach (TypeMetadata c in model.getTypes())
             {
                 Children.Add(new TreeViewType(model, c));
             }

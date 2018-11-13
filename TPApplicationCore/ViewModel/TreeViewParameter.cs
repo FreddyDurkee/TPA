@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using TPApplicationCore.Model;
 using TPApplicationCore.ViewModelAPI;
 
@@ -16,9 +14,9 @@ namespace TPApplicationCore.ViewModel
 
         
         private ParameterMetadata reflectionReference;
-        protected override void BuildMyself()
+        protected override void createExtension()
         {
-            TypeMetadata classReference = model.getClass(reflectionReference);
+            TypeMetadata classReference = model.getType(reflectionReference);
             if (classReference == null)
                 return;
             foreach (FieldMetadata field in model.getFields(classReference))
@@ -38,7 +36,7 @@ namespace TPApplicationCore.ViewModel
         public TreeViewParameter(MetadataModel model, ParameterMetadata reflectionReference):base(model, reflectionReference.anyChildren())
         {
             this.reflectionReference = reflectionReference;
-            Name = model.getClass(reflectionReference).getName() + " " + reflectionReference.getName();
+            Name = model.getType(reflectionReference).getName() + " " + reflectionReference.getName();
         }
       
     }
