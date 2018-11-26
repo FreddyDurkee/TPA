@@ -11,18 +11,17 @@ namespace TUIApplication
 {
     class TextualProcessor
     {
-        private ViewModel viewModel = new ViewModel();
+        Browser browser = new Browser();
+
+        private ViewModel viewModel = new ViewModel(new Browser());
         private UserNotifier userNotifier = new UserNotifier();
 
         public void run()
         {
             userNotifier.showMessage(Properties.Resources.welcomeMsg);
-            string path;
-            while (getAsseblyPath(out path))
+            while (browser.Browse())
             {
-                if (!String.IsNullOrEmpty(path)) {
-                    handleModelExploration(path);
-                }
+               handleModelExploration(browser.fileName);
             }
             userNotifier.showMessage(Properties.Resources.goodbye);
         }
@@ -70,6 +69,7 @@ namespace TUIApplication
 
         private bool getAsseblyPath(out string path)
         {
+           
             userNotifier.askData(Properties.Resources.askDLLPath);
             ConsoleKeyInfo key = Console.ReadKey();
             if(key.Key != ConsoleKey.Escape)

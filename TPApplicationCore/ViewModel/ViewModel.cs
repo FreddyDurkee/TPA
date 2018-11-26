@@ -17,14 +17,17 @@ namespace TPApplicationCore.ViewModel
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
         public ICommand Click_ShowTreeView { get; }
+        private IBrowser Browser;
         #endregion
 
         #region constructor
-        public ViewModel()
+        public ViewModel(IBrowser browser)
         {
+            Browser = browser;
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
+
         }
         #endregion
 
@@ -55,16 +58,9 @@ namespace TPApplicationCore.ViewModel
 
         private void Browse()
         {
-            OpenFileDialog test = new OpenFileDialog()
+            if (Browser.Browse())            
             {
-                Filter = "Dynamic Library File(*.dll)| *.dll"
-            };
-            test.ShowDialog();
-            if (test.FileName.Length == 0)
-                MessageBox.Show("No files selected");
-            else
-            {
-                PathVariable = test.FileName;
+                PathVariable = Browser.fileName;
                 ChangeControlVisibility = Visibility.Visible;
                 RaisePropertyChanged("ChangeControlVisibility");
                 RaisePropertyChanged("PathVariable");

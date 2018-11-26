@@ -32,5 +32,10 @@ namespace TUIApplication
         {
             Console.WriteLine("|Warning| " + msg);
         }
+
+        internal void NewLine()
+        {
+            Console.WriteLine();
+        }
     }
 }

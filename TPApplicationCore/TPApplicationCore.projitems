@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\TypeMetadata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModelAPI\ITreeViewItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DelegateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\IBrowser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TreeViewField.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TreeViewItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TreeViewMethod.cs" />

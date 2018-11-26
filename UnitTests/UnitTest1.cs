@@ -32,7 +32,7 @@ namespace UnitTests
         public void Should_5_BeEqualNumberOfTypes()
         {
             string path = System.IO.Path.Combine(Environment.CurrentDirectory,
-                                    "..\..\library.dll");
+                                    @"..\..\library.dll");
             MetadataModel test = new MetadataModel(path);
             Assert.AreEqual(5, test.typesList.Count);
         }
