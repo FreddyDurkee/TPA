@@ -88,6 +88,15 @@ namespace TUIApplication.Properties {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Serialized!.
+        /// </summary>
+        public static string serializeMsg {
+            get {
+                return ResourceManager.GetString("serializeMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Welcome my friend!\nWanna read some dll?.
         /// </summary>
         public static string welcomeMsg {

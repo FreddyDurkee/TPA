@@ -126,6 +126,9 @@
   <data name="incorrectInput" xml:space="preserve">
     <value>Incorrect input!</value>
   </data>
+  <data name="serializeMsg" xml:space="preserve">
+    <value>Serialized!</value>
+  </data>
   <data name="welcomeMsg" xml:space="preserve">
     <value>Welcome my friend!\nWanna read some dll?</value>
   </data>

@@ -15,7 +15,7 @@ namespace GUIApplication
         {
             OpenFileDialog test = new OpenFileDialog()
             {
-                Filter = "Dynamic Library File(*.dll)| *.dll"
+                Filter = "Dynamic Library File(*.dll)|*.dll|XML file (*.xml)|*.xml"
             };
             test.ShowDialog();
             if (test.FileName.Length == 0)

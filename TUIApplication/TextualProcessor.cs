@@ -42,6 +42,10 @@ namespace TUIApplication
             {
                 string decision = key.KeyChar + Console.ReadLine();
                 switch (decision) {
+                    case "serialize":
+                        viewModel.Serialize();
+                        userNotifier.showMessage(Properties.Resources.serializeMsg);
+                        break;
                     case "-":
                         stack.Pop();
                         break;

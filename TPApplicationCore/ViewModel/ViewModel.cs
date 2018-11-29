@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -29,6 +30,7 @@ namespace TPApplicationCore.ViewModel
         {
             Browser = browser;
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            connectedModels = new Dictionary<string, MetadataModel>();
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
             Click_Serialize = new DelegateCommand(Serialize);
@@ -37,6 +39,7 @@ namespace TPApplicationCore.ViewModel
         public ViewModel()
         {
             Browser = new SimpleBrowser();
+            connectedModels = new Dictionary<string, MetadataModel>();
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
@@ -56,7 +59,23 @@ namespace TPApplicationCore.ViewModel
         public void LoadDLL()
         {
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
-                TreeViewLoaded();
+            {
+                MetadataModel model = new MetadataModel(PathVariable);
+                TreeViewLoaded(model);
+            }
+            else if((PathVariable.Substring(PathVariable.Length - 4) == ".xml"))
+            {
+                FileStream fs = new FileStream(PathVariable, FileMode.Open);
+                XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, XmlDictionaryReaderQuotas.Max);
+                NetDataContractSerializer ser = new NetDataContractSerializer();
+                MetadataModel model = (MetadataModel)ser.ReadObject(reader, true);
+                reader.Close();
+                TreeViewLoaded(model);
+            }
+            else
+            {
+                Console.WriteLine("Incorrect path ", PathVariable);
+            }
         }
 
         public void Serialize()
@@ -75,12 +94,16 @@ namespace TPApplicationCore.ViewModel
         #endregion
 
         #region private
-        private void TreeViewLoaded()
+        private void TreeViewLoaded(MetadataModel model)
         {
-            MetadataModel model = new MetadataModel(PathVariable);
-            TreeViewItem rootItem = new TreeViewItem(model,true) { Name = PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1) };
+
+            TreeViewItem rootItem = new TreeViewItem(model,true) { Name = model.name };
             Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "New model loaded:" + rootItem.Name);
             HierarchicalAreas.Add(rootItem);
+            if (!connectedModels.ContainsKey(PathVariable))
+            {
+                connectedModels.Add(PathVariable, model);
+            }
         }
 
         private void Browse()

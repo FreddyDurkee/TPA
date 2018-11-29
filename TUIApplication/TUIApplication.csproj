@@ -65,5 +65,11 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
+      <Project>{ae36a566-0042-49d2-abbc-dd55a01f5be4}</Project>
+      <Name>TPApplicationCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

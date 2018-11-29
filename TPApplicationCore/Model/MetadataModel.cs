@@ -15,6 +15,9 @@ namespace TPApplicationCore.Model
         [DataMember]
         private Dictionary<string,TypeMetadata> typeList;
 
+        [DataMember]
+        public string name;
+
         public Dictionary<string, TypeMetadata> typesList
         {
             get { return typeList; }
@@ -54,6 +57,8 @@ namespace TPApplicationCore.Model
         {
             typeList = new Dictionary<string,TypeMetadata>();
             Type[] typy = Assembly.LoadFrom(assemblyFile).GetTypes();
+            string filename = Path.GetFileName(assemblyFile);
+            name = filename.Substring(0, filename.Length - 4);
             foreach (Type t in typy)
             {
                 buildTypes(t);

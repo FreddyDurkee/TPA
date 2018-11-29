@@ -28,7 +28,7 @@
         <TextBox Text="{Binding Mode=OneWay,Path=PathVariable}" HorizontalAlignment="Left" Margin="426,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="39" Width="496"/>
         <Button x:Name="browseButton" Content="Browse" Command="{Binding Click_Browse}" HorizontalAlignment="Left" Margin="782,84,0,0" VerticalAlignment="Top" Width="97" Height="36" />
         <Button x:Name="treeViewButton" Content="ShowTreeView" Command="{Binding Click_ShowTreeView}" HorizontalAlignment="Left" Margin="694,313,0,0" VerticalAlignment="Top" Width="185" Height="42"/>
-        <Button x:Name="serializeButton" Content="serialize" HorizontalAlignment="Left" Margin="694,398,0,0" VerticalAlignment="Top" Width="185" Height="43" />
+        <Button x:Name="serializeButton" Content="serialize"  Command="{Binding Click_Serialize}" HorizontalAlignment="Left" Margin="694,398,0,0" VerticalAlignment="Top" Width="185" Height="43" />
 
     </Grid>
 </Window>
