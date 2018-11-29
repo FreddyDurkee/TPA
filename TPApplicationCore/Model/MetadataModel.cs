@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using TPApplicationCore.ViewModelAPI;
 
 
 namespace TPApplicationCore.Model
 {
+    [DataContract]
     public class MetadataModel
     {
+        [DataMember]
         private Dictionary<string,TypeMetadata> typeList;
 
         public Dictionary<string, TypeMetadata> typesList

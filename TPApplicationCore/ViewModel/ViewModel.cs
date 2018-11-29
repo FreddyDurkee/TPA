@@ -1,10 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml;
 using TPApplicationCore.Model;
-using TPApplicationCore.Logging;
 
 namespace TPApplicationCore.ViewModel
 {
@@ -12,12 +14,14 @@ namespace TPApplicationCore.ViewModel
     {
 
         #region DataContext
-        public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
+        public System.Collections.ObjectModel.ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
+        private Dictionary<string, MetadataModel> connectedModels;
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
+        public ICommand Click_Serialize { get; }
         public ICommand Click_ShowTreeView { get; }
-        private IBrowser Browser;
+        public IBrowser Browser { get; set; }
         #endregion
 
         #region constructor
@@ -27,7 +31,16 @@ namespace TPApplicationCore.ViewModel
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
+            Click_Serialize = new DelegateCommand(Serialize);
+        }
 
+        public ViewModel()
+        {
+            Browser = new SimpleBrowser();
+            HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            Click_ShowTreeView = new DelegateCommand(LoadDLL);
+            Click_Browse = new DelegateCommand(Browse);
+            Click_Serialize = new DelegateCommand(Serialize);
         }
         #endregion
 
@@ -44,6 +57,20 @@ namespace TPApplicationCore.ViewModel
         {
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
                 TreeViewLoaded();
+        }
+
+        public void Serialize()
+        {
+            MetadataModel tmp_model;
+            if (connectedModels.TryGetValue(PathVariable, out tmp_model))
+            {
+                FileStream fs = new FileStream(PathVariable.Substring(0, PathVariable.Length - 3) + "xml", FileMode.Create);
+                XmlDictionaryWriter writer = XmlDictionaryWriter.CreateTextWriter(fs);
+                NetDataContractSerializer ser = new NetDataContractSerializer();
+                ser.WriteObject(writer, tmp_model);
+                writer.Close();
+            }
+
         }
         #endregion
 

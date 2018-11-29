@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using TPApplicationCore.ViewModel;
 
-namespace TPAapplication
+namespace GUIApplication
 {
-    class Browser : TPApplicationCore.ViewModel.IBrowser
+    public class Browser : IBrowser
     {
         bool IBrowser.Browse()
         {

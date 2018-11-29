@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TPApplicationCore.Model
 
 {
+    [DataContract]
     public class TypeMetadata
     {
         #region private
+        [DataMember]
         private List<MethodMetadata> methods;
+        [DataMember]
         private List<PropertyMetadata> properties;
+        [DataMember]
         private List<FieldMetadata> fields;
+        [DataMember]
         private string name;
         #endregion
 
