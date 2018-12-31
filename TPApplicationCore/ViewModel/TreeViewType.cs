@@ -31,10 +31,10 @@ namespace TPApplicationCore.ViewModel
         }
         
        
-        public TreeViewType(MetadataModel model, TypeMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
+        public TreeViewType(AssemblyMetadata model, TypeMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
         {
             this.reflectionReference = reflectionReference;
-            Name = reflectionReference.getName();
+            Name = "c:  " + reflectionReference.getName();
         }
       
     }

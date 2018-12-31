@@ -14,7 +14,7 @@ namespace TPApplicationCore.ViewModel
 
         private FieldMetadata reflectionReference;
 
-        private void createExtension()
+        private void CreateExtension()
         {
             TypeMetadata typeReference = model.getType(reflectionReference);
             if (typeReference == null)
@@ -33,10 +33,10 @@ namespace TPApplicationCore.ViewModel
             }
         }
 
-        public TreeViewField(MetadataModel model, FieldMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
+        public TreeViewField(AssemblyMetadata model, FieldMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
         {
             this.reflectionReference = reflectionReference;
-            Name = model.getType(reflectionReference).getName() + " " + reflectionReference.getName();              
+            Name = "f:  " + reflectionReference.getName() + "  : " + model.getType(reflectionReference).getName();              
         }
      
     }

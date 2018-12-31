@@ -10,7 +10,7 @@ using TPApplicationCore.ViewModelAPI;
 namespace TPApplicationCore.Model
 {
     [DataContract]
-    public class MetadataModel
+    public class AssemblyMetadata
     {
         [DataMember]
         private Dictionary<string,TypeMetadata> typeList;
@@ -53,7 +53,7 @@ namespace TPApplicationCore.Model
             return type.getPropertiesList().ToList();
         }
 
-        public MetadataModel(string assemblyFile)
+        public AssemblyMetadata(string assemblyFile)
         {
             typeList = new Dictionary<string,TypeMetadata>();
             Type[] typy = Assembly.LoadFrom(assemblyFile).GetTypes();
@@ -65,6 +65,11 @@ namespace TPApplicationCore.Model
             }
         }
 
+        public AssemblyMetadata(string name, Dictionary<string, TypeMetadata> typeList)
+        {
+            this.typeList = typeList;
+            this.name = name;
+        }
 
         public void buildTypes(Type type)
         {

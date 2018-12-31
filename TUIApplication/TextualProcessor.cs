@@ -30,6 +30,11 @@ namespace TUIApplication
         {
             viewModel.PathVariable = path;
             viewModel.LoadDLL();
+            if(viewModel.HierarchicalAreas.Count == 0)
+            {
+                userNotifier.showMessage("Nothing to explore.");
+                return;
+            }
             Stack<TreeViewItem> stack = new Stack<TreeViewItem>();
             
             stack.Push(viewModel.HierarchicalAreas.ElementAt(0) ) ;

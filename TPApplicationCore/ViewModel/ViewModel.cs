@@ -16,7 +16,7 @@ namespace TPApplicationCore.ViewModel
 
         #region DataContext
         public System.Collections.ObjectModel.ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
-        private Dictionary<string, MetadataModel> connectedModels;
+        private Dictionary<string, AssemblyMetadata> connectedModels;
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
@@ -30,7 +30,7 @@ namespace TPApplicationCore.ViewModel
         {
             Browser = browser;
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-            connectedModels = new Dictionary<string, MetadataModel>();
+            connectedModels = new Dictionary<string, AssemblyMetadata>();
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
             Click_Serialize = new DelegateCommand(Serialize);
@@ -39,7 +39,7 @@ namespace TPApplicationCore.ViewModel
         public ViewModel()
         {
             Browser = new SimpleBrowser();
-            connectedModels = new Dictionary<string, MetadataModel>();
+            connectedModels = new Dictionary<string, AssemblyMetadata>();
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
@@ -60,7 +60,7 @@ namespace TPApplicationCore.ViewModel
         {
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
             {
-                MetadataModel model = new MetadataModel(PathVariable);
+                AssemblyMetadata model = new AssemblyMetadata(PathVariable);
                 TreeViewLoaded(model);
             }
             else if((PathVariable.Substring(PathVariable.Length - 4) == ".xml"))
@@ -68,7 +68,7 @@ namespace TPApplicationCore.ViewModel
                 FileStream fs = new FileStream(PathVariable, FileMode.Open);
                 XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, XmlDictionaryReaderQuotas.Max);
                 NetDataContractSerializer ser = new NetDataContractSerializer();
-                MetadataModel model = (MetadataModel)ser.ReadObject(reader, true);
+                AssemblyMetadata model = (AssemblyMetadata)ser.ReadObject(reader, true);
                 reader.Close();
                 TreeViewLoaded(model);
             }
@@ -80,7 +80,7 @@ namespace TPApplicationCore.ViewModel
 
         public void Serialize()
         {
-            MetadataModel tmp_model;
+            AssemblyMetadata tmp_model;
             if (connectedModels.TryGetValue(PathVariable, out tmp_model))
             {
                 FileStream fs = new FileStream(PathVariable.Substring(0, PathVariable.Length - 3) + "xml", FileMode.Create);
@@ -94,7 +94,7 @@ namespace TPApplicationCore.ViewModel
         #endregion
 
         #region private
-        private void TreeViewLoaded(MetadataModel model)
+        private void TreeViewLoaded(AssemblyMetadata model)
         {
 
             TreeViewItem rootItem = new TreeViewItem(model,true) { Name = model.name };

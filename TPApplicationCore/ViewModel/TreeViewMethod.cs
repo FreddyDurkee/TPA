@@ -22,10 +22,10 @@ namespace TPApplicationCore.ViewModel
         }
 
 
-        public TreeViewMethod(MetadataModel model, MethodMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
+        public TreeViewMethod(AssemblyMetadata model, MethodMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
         {
             this.reflectionReference = reflectionReference;
-            Name = reflectionReference.getType().getName() + " " + reflectionReference.getName();
+            Name = "m:  " + reflectionReference.getName() + "  : " + reflectionReference.getType().getName() ;
         }
        
     }

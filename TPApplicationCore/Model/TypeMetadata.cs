@@ -12,15 +12,12 @@ namespace TPApplicationCore.Model
     public class TypeMetadata
     {
         #region private
-        [DataMember]
         private List<MethodMetadata> methods;
-        [DataMember]
         private List<PropertyMetadata> properties;
-        [DataMember]
         private List<FieldMetadata> fields;
-        [DataMember]
         private string name;
         #endregion
+
 
         public TypeMetadata(string name)
         {

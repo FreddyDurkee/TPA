@@ -13,7 +13,7 @@ namespace UnitTests
 
             string path = System.IO.Path.Combine(Environment.CurrentDirectory,
                                      @"..\..\library.dll");
-            MetadataModel test = new MetadataModel(path);
+            AssemblyMetadata test = new AssemblyMetadata(path);
             Assert.IsNotNull(test);
             Assert.IsTrue(test.getTypes().Count > 0);
         }
@@ -24,7 +24,7 @@ namespace UnitTests
 
             string path = System.IO.Path.Combine(Environment.CurrentDirectory,
                                      @"..\..\library.dll");
-            MetadataModel test = new MetadataModel(path);
+            AssemblyMetadata test = new AssemblyMetadata(path);
             Assert.AreEqual(".dll", path.Substring(path.Length - 4));
         }
 
@@ -33,7 +33,7 @@ namespace UnitTests
         {
             string path = System.IO.Path.Combine(Environment.CurrentDirectory,
                                     @"..\..\library.dll");
-            MetadataModel test = new MetadataModel(path);
+            AssemblyMetadata test = new AssemblyMetadata(path);
             Assert.AreEqual(5, test.typesList.Count);
         }
 
@@ -42,7 +42,7 @@ namespace UnitTests
         {
             string path = System.IO.Path.Combine(Environment.CurrentDirectory,
                                     @"..\..\library.dll");
-            MetadataModel test = new MetadataModel(path);
+            AssemblyMetadata test = new AssemblyMetadata(path);
             Assert.AreEqual(1, test.getProperties(test.typesList["ServiceA"]).Count);
         }
     }

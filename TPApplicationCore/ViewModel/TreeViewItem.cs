@@ -11,7 +11,7 @@ namespace TPApplicationCore.ViewModel
 {
     public class TreeViewItem : ITreeViewItem
     {
-        public TreeViewItem(MetadataModel model, bool hasChildren)
+        public TreeViewItem(AssemblyMetadata model, bool hasChildren)
         {
             if (hasChildren) {
                 Children = new ObservableCollection<TreeViewItem>() { null };
@@ -40,7 +40,7 @@ namespace TPApplicationCore.ViewModel
                 m_WasBuilt = true;
             }
         }
-        protected MetadataModel model;
+        protected AssemblyMetadata model;
 
         private bool m_WasBuilt;
         private bool m_IsExpanded;
