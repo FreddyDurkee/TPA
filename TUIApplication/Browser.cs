@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TUIApplication
 {
-    class Browser : TPApplicationCore.ViewModel.IBrowser
+    class Browser : UIBackend.ViewModel.IBrowser
     {
         private UserNotifier userNotifier = new UserNotifier();
 

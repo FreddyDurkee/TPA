@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TPApplicationCore.Model;
-using TPApplicationCore.ViewModelAPI;
+using UIBackend.ViewModelAPI;
 
-namespace TPApplicationCore.ViewModel
+namespace UIBackend.ViewModel
 
 {
     public class TreeViewType : TreeViewItem

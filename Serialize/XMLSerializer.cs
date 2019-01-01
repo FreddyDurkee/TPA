@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Serialize
 {
-    class XMLSerializer : IFileSerializer
+    public class XMLSerializer : IFileSerializer
     {
         ModelToXMLConverter converter = new ModelToXMLConverter();
         public AssemblyMetadata deserialize(string filePath)

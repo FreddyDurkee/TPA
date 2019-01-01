@@ -17,6 +17,7 @@ namespace Serialize.Converter
             {
               TypeXmlModel xmlType = new TypeXmlModel(type.getName());
               mapper.Add(type, xmlType);
+                xmlModel.typeList.Add(xmlType);
             }
 
             foreach(TypeMetadata key in mapper.Keys)
@@ -30,18 +31,19 @@ namespace Serialize.Converter
         private void fillDTOData(TypeMetadata key, Dictionary<TypeMetadata, TypeXmlModel> mapper)
         {
             TypeXmlModel xmlType = mapper[key];
+            Dictionary<string, TypeXmlModel> unknownTypes = new Dictionary<string, TypeXmlModel>();
             foreach(FieldMetadata field in key.getFieldsList())
-                {
-                    FieldXmlModel xmlField = new FieldXmlModel(field.getName(),mapper[field.getType()]);
-                    xmlType.fields.Add(xmlField);
-                }
+            {
+                FieldXmlModel xmlField = new FieldXmlModel(field.getName(), retrieveXmlType(mapper,unknownTypes, field.getType()));
+                xmlType.fields.Add(xmlField);
+            }
 
             foreach (MethodMetadata method in key.getMethodsList())
             {
-                MethodXmlModel xmlMethod = new MethodXmlModel(method.getName(), mapper[method.getType()]);
+                MethodXmlModel xmlMethod = new MethodXmlModel(method.getName(), retrieveXmlType(mapper, unknownTypes, method.getType()));
                 foreach(ParameterMetadata parameter in method.getParameterList())
                 {
-                    ParameterXmlModel xmlParameter = new ParameterXmlModel(parameter.getName(), mapper[parameter.getType()]);
+                    ParameterXmlModel xmlParameter = new ParameterXmlModel(parameter.getName(), retrieveXmlType(mapper, unknownTypes, parameter.getType()));
                     xmlMethod.parameters.Add(xmlParameter);
                 }
                 xmlType.methods.Add(xmlMethod);
@@ -49,13 +51,13 @@ namespace Serialize.Converter
 
             foreach (PropertyMetadata property in key.getPropertiesList())
             {
-                PropertyXmlModel xmlProperty = new PropertyXmlModel(property.getName(),mapper[property.getType()]);
+                PropertyXmlModel xmlProperty = new PropertyXmlModel(property.getName(), retrieveXmlType(mapper, unknownTypes, property.getType()));
                 foreach(MethodMetadata method in property.getAccessorList())
                 {
-                    MethodXmlModel xmlMethod = new MethodXmlModel(method.getName(), mapper[method.getType()]);
+                    MethodXmlModel xmlMethod = new MethodXmlModel(method.getName(), retrieveXmlType(mapper, unknownTypes, method.getType()));
                     foreach (ParameterMetadata parameter in method.getParameterList())
                     {
-                        ParameterXmlModel xmlParameter = new ParameterXmlModel(parameter.getName(), mapper[parameter.getType()]);
+                        ParameterXmlModel xmlParameter = new ParameterXmlModel(parameter.getName(), retrieveXmlType(mapper, unknownTypes, parameter.getType()));
                         xmlMethod.parameters.Add(xmlParameter);
                     }
                     xmlProperty.accessorList.Add(xmlMethod);
@@ -63,6 +65,44 @@ namespace Serialize.Converter
                 xmlType.properties.Add(xmlProperty);
             }
 
+        }
+
+        private TypeXmlModel retrieveXmlType(Dictionary<TypeMetadata, TypeXmlModel> mapper, Dictionary<string, TypeXmlModel> unknownTypes, TypeMetadata type)
+        {
+            TypeXmlModel model;
+            if(mapper.TryGetValue(type, out model))
+            {
+                return model;
+            }
+            else if(unknownTypes.TryGetValue(type.getName(), out model))
+            {
+                return model;
+            }
+            else
+            {
+                model = new TypeXmlModel(type.getName());
+                unknownTypes.Add(type.getName(), model);
+                return model;
+            }
+        }
+
+        private TypeMetadata retrieveType(Dictionary<TypeXmlModel, TypeMetadata> mapper, Dictionary<string, TypeMetadata> unknownTypes, TypeXmlModel type)
+        {
+            TypeMetadata model;
+            if (mapper.TryGetValue(type, out model))
+            {
+                return model;
+            }
+            else if (unknownTypes.TryGetValue(type.name, out model))
+            {
+                return model;
+            }
+            else
+            {
+                model = new TypeMetadata(type.name);
+                unknownTypes.Add(type.name, model);
+                return model;
+            }
         }
 
         public AssemblyMetadata FromDTO(AssemblyXmlModel dto)
@@ -75,6 +115,7 @@ namespace Serialize.Converter
             {
                 TypeMetadata type = new TypeMetadata(xmlType.name);
                 mapper.Add(xmlType, type);
+                types.Add(type.getName(),type);
             }
 
             foreach (TypeXmlModel key in mapper.Keys)
@@ -88,18 +129,19 @@ namespace Serialize.Converter
         private void fillModelData(TypeXmlModel key, Dictionary<TypeXmlModel, TypeMetadata> mapper)
         {
             TypeMetadata type = mapper[key];
+            Dictionary<string, TypeMetadata> unknownTypes = new Dictionary<string, TypeMetadata>();
             foreach (FieldXmlModel xmlField in key.fields)
             {
-                FieldMetadata field = new FieldMetadata(xmlField.name, mapper[xmlField.type]);
+                FieldMetadata field = new FieldMetadata(xmlField.name, retrieveType(mapper,unknownTypes,xmlField.type));
                 type.getFieldsList().Add(field);
             }
 
             foreach (MethodXmlModel xmlMethod in key.methods)
             {
-                MethodMetadata method = new MethodMetadata(xmlMethod.name, mapper[xmlMethod.returnType]);
+                MethodMetadata method = new MethodMetadata(xmlMethod.name, retrieveType(mapper, unknownTypes, xmlMethod.returnType));
                 foreach (ParameterXmlModel xmlParameter in xmlMethod.parameters)
                 {
-                    ParameterMetadata parameter = new ParameterMetadata(xmlParameter.name, mapper[xmlParameter.type]);
+                    ParameterMetadata parameter = new ParameterMetadata(xmlParameter.name, retrieveType(mapper, unknownTypes, xmlParameter.type));
                     method.getParameterList().Add(parameter);
                 }
                 type.getMethodsList().Add(method);
@@ -107,13 +149,13 @@ namespace Serialize.Converter
 
             foreach (PropertyXmlModel xmlProperty in key.properties)
             {
-                PropertyMetadata property = new PropertyMetadata(xmlProperty.name, mapper[xmlProperty.type]);
+                PropertyMetadata property = new PropertyMetadata(xmlProperty.name, retrieveType(mapper, unknownTypes, xmlProperty.type));
                 foreach (MethodXmlModel xmlMethod in key.methods)
                 {
-                    MethodMetadata method = new MethodMetadata(xmlMethod.name, mapper[xmlMethod.returnType]);
+                    MethodMetadata method = new MethodMetadata(xmlMethod.name, retrieveType(mapper, unknownTypes, xmlMethod.returnType));
                     foreach (ParameterXmlModel xmlParameter in xmlMethod.parameters)
                     {
-                        ParameterMetadata parameter = new ParameterMetadata(xmlParameter.name, mapper[xmlParameter.type]);
+                        ParameterMetadata parameter = new ParameterMetadata(xmlParameter.name, retrieveType(mapper, unknownTypes, xmlParameter.type));
                         method.getParameterList().Add(parameter);
                     }
                     property.getAccessorList().Add(method);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPApplicationCore.ViewModelAPI
+namespace UIBackend.ViewModelAPI
 {
     public interface ITreeViewItem
     {

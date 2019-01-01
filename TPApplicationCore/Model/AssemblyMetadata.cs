@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using TPApplicationCore.ViewModelAPI;
 
 
 namespace TPApplicationCore.Model
@@ -33,7 +32,7 @@ namespace TPApplicationCore.Model
             return type.getFieldsList().ToList();
         }
 
-        internal List<MethodMetadata> getAccessors(PropertyMetadata property)
+        public List<MethodMetadata> getAccessors(PropertyMetadata property)
         {
             return property.getAccessorList();
         }

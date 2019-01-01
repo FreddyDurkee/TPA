@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIApplication", "GUIApplication\GUIApplication.csproj", "{B582CD9C-9393-46F2-826B-A915758B081B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUIApplication", "TUIApplication\TUIApplication.csproj", "{E06FEC53-E950-41D8-9907-2318AA868DFF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AE36A566-0042-49D2-ABBC-DD55A01F5BE4} = {AE36A566-0042-49D2-ABBC-DD55A01F5BE4}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{30DCCEB7-CAA2-4041-8D5B-C470F37502BB}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -18,6 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPApplicationCore", "TPApplicationCore\TPApplicationCore.csproj", "{AE36A566-0042-49D2-ABBC-DD55A01F5BE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialize", "Serialize\Serialize.csproj", "{FB69E161-9B13-4201-9D21-886D828B17AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIBackend", "UserInterfaceBackend\UIBackend.csproj", "{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +88,18 @@ Global
 		{FB69E161-9B13-4201-9D21-886D828B17AD}.Release|x64.Build.0 = Release|Any CPU
 		{FB69E161-9B13-4201-9D21-886D828B17AD}.Release|x86.ActiveCfg = Release|Any CPU
 		{FB69E161-9B13-4201-9D21-886D828B17AD}.Release|x86.Build.0 = Release|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Debug|x64.Build.0 = Debug|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Debug|x86.Build.0 = Debug|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Release|x64.ActiveCfg = Release|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Release|x64.Build.0 = Release|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Release|x86.ActiveCfg = Release|Any CPU
+		{FDD7BFF4-92D9-4D61-BCDF-3F6A045D9ED0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

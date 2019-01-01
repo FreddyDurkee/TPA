@@ -8,8 +8,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using TPApplicationCore.Model;
+using TPApplicationCore.Logging;
+using Serialize.Api;
+using Serialize;
 
-namespace TPApplicationCore.ViewModel
+namespace UIBackend.ViewModel
 {
     public class ViewModel : INotifyPropertyChanged
     {
@@ -17,6 +20,7 @@ namespace TPApplicationCore.ViewModel
         #region DataContext
         public System.Collections.ObjectModel.ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         private Dictionary<string, AssemblyMetadata> connectedModels;
+        private IFileSerializer xmlSerializer = new XMLSerializer();
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
@@ -65,11 +69,7 @@ namespace TPApplicationCore.ViewModel
             }
             else if((PathVariable.Substring(PathVariable.Length - 4) == ".xml"))
             {
-                FileStream fs = new FileStream(PathVariable, FileMode.Open);
-                XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, XmlDictionaryReaderQuotas.Max);
-                NetDataContractSerializer ser = new NetDataContractSerializer();
-                AssemblyMetadata model = (AssemblyMetadata)ser.ReadObject(reader, true);
-                reader.Close();
+                AssemblyMetadata model = xmlSerializer.deserialize(PathVariable);
                 TreeViewLoaded(model);
             }
             else
@@ -83,11 +83,7 @@ namespace TPApplicationCore.ViewModel
             AssemblyMetadata tmp_model;
             if (connectedModels.TryGetValue(PathVariable, out tmp_model))
             {
-                FileStream fs = new FileStream(PathVariable.Substring(0, PathVariable.Length - 3) + "xml", FileMode.Create);
-                XmlDictionaryWriter writer = XmlDictionaryWriter.CreateTextWriter(fs);
-                NetDataContractSerializer ser = new NetDataContractSerializer();
-                ser.WriteObject(writer, tmp_model);
-                writer.Close();
+                xmlSerializer.serialize(tmp_model, PathVariable);
             }
 
         }
@@ -98,7 +94,7 @@ namespace TPApplicationCore.ViewModel
         {
 
             TreeViewItem rootItem = new TreeViewItem(model,true) { Name = model.name };
-            Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "New model loaded:" + rootItem.Name);
+            Logger.log(System.Diagnostics.TraceEventType.Information, "New model loaded:" + rootItem.Name);
             HierarchicalAreas.Add(rootItem);
             if (!connectedModels.ContainsKey(PathVariable))
             {

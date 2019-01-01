@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Serialize
 {
-    class DBSerializer
+    public class DBSerializer
     {
     }
 }

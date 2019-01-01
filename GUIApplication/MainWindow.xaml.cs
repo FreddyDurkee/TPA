@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using TPApplicationCore.ViewModel;
+using UIBackend.ViewModel;
 
 namespace GUIApplication
 {

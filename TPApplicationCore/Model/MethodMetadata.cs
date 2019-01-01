@@ -33,7 +33,7 @@ namespace TPApplicationCore.Model
 
         public string getName()
         {
-            return name + "()";
+            return name;
         }
 
         public TypeMetadata getType()

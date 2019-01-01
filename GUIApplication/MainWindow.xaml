@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:GUIApplication"
         xmlns:gui="clr-namespace:GUIApplication"
-        xmlns:core="clr-namespace:TPApplicationCore.ViewModel;assembly=TPApplicationCore"
+        xmlns:core="clr-namespace:UIBackend.ViewModel;assembly=UIBackend"
         Title="MainWindow" Height="629.2" Width="998.4">
     <Window.Resources>
         <local:Browser x:Key="guiBrowser" x:Name="Browser_name"/>

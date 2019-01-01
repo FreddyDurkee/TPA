@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TPApplicationCore.ViewModel
+namespace UIBackend.ViewModel
 {
     public interface IBrowser
     {

@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using TPApplicationCore.Model;
-using TPApplicationCore.ViewModelAPI;
+using UIBackend.ViewModelAPI;
 
-namespace TPApplicationCore.ViewModel
+namespace UIBackend.ViewModel
 {
     public class TreeViewMethod : TreeViewItem
     {
@@ -25,7 +25,7 @@ namespace TPApplicationCore.ViewModel
         public TreeViewMethod(AssemblyMetadata model, MethodMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
         {
             this.reflectionReference = reflectionReference;
-            Name = "m:  " + reflectionReference.getName() + "  : " + reflectionReference.getType().getName() ;
+            Name = "m:  " + reflectionReference.getName() + "()" + "  : " + reflectionReference.getType().getName() ;
         }
        
     }

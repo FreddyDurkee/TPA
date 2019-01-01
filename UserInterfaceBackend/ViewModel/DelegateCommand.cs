@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TPApplicationCore.ViewModel
+namespace UIBackend.ViewModel
 {
     public class DelegateCommand : ICommand
     {
