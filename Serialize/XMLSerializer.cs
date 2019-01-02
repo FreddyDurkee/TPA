@@ -5,12 +5,14 @@ using Serialize.Converter;
 using System.IO;
 using System.Xml;
 using System.Runtime.Serialization;
+using System.ComponentModel.Composition;
 
 namespace Serialize
 {
     public class XMLSerializer : IFileSerializer
     {
         ModelToXMLConverter converter = new ModelToXMLConverter();
+
         public AssemblyMetadata deserialize(string filePath)
         {
             FileStream fs = new FileStream(filePath, FileMode.Open);

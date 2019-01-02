@@ -9,9 +9,8 @@ using System;
 
 namespace Serialize
 {
-    public class DBSerializer: IDBSerializer
+    public class DBSerializer : IDBSerializer
     {
-
         ModelToDBConverter converter = new ModelToDBConverter();
 
         public AssemblyMetadata deserialize()

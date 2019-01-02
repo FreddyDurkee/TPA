@@ -11,6 +11,8 @@ using TPApplicationCore.Model;
 using TPApplicationCore.Logging;
 using Serialize.Api;
 using Serialize;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 
 namespace UIBackend.ViewModel
 {
@@ -20,8 +22,10 @@ namespace UIBackend.ViewModel
         #region DataContext
         public System.Collections.ObjectModel.ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         private Dictionary<string, AssemblyMetadata> connectedModels;
-        private IFileSerializer xmlSerializer = new XMLSerializer();
-        private IDBSerializer dBSerializer = new DBSerializer();
+        [Import]
+        public IFileSerializer Serializer;
+        [Import]
+        private IDBSerializer dBSerializer;
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
@@ -43,18 +47,11 @@ namespace UIBackend.ViewModel
             Click_Serialize = new DelegateCommand(Serialize);
             Click_SaveToDb = new DelegateCommand(SaveToDb);
             Click_ReadFromDb = new DelegateCommand(ReadFromDb);
+            Compose();
         }
 
-        public ViewModel()
-        {
-            Browser = new SimpleBrowser();
-            connectedModels = new Dictionary<string, AssemblyMetadata>();
-            HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-            Click_ShowTreeView = new DelegateCommand(LoadDLL);
-            Click_Browse = new DelegateCommand(Browse);
-            Click_Serialize = new DelegateCommand(Serialize);
-            Click_SaveToDb = new DelegateCommand(SaveToDb);
-            Click_ReadFromDb = new DelegateCommand(ReadFromDb);
+        public ViewModel(): this(new SimpleBrowser())
+        {   
         }
         #endregion
 
@@ -76,7 +73,7 @@ namespace UIBackend.ViewModel
             }
             else if((PathVariable.Substring(PathVariable.Length - 4) == ".xml"))
             {
-                AssemblyMetadata model = xmlSerializer.deserialize(PathVariable);
+                AssemblyMetadata model = Serializer.deserialize(PathVariable);
                 TreeViewLoaded(model);
             }
             else
@@ -85,12 +82,15 @@ namespace UIBackend.ViewModel
             }
         }
 
+
         public void Serialize()
         {
             AssemblyMetadata tmp_model;
-            if (connectedModels.TryGetValue(PathVariable, out tmp_model))
+            string filename = Path.GetFileName(PathVariable);
+            string modelName = filename.Substring(0, filename.Length - 4);
+            if (connectedModels.TryGetValue(modelName, out tmp_model))
             {
-                xmlSerializer.serialize(tmp_model, PathVariable);
+                Serializer.serialize(tmp_model, PathVariable);
             }
 
         }
@@ -98,7 +98,9 @@ namespace UIBackend.ViewModel
         public void SaveToDb()
         {
             AssemblyMetadata tmp_model;
-            if (connectedModels.TryGetValue(PathVariable, out tmp_model))
+            string filename = Path.GetFileName(PathVariable);
+            string modelName = filename.Substring(0, filename.Length - 4);
+            if (connectedModels.TryGetValue(modelName, out tmp_model))
             {
                 dBSerializer.serialize(tmp_model);
             }
@@ -136,6 +138,13 @@ namespace UIBackend.ViewModel
                 RaisePropertyChanged("ChangeControlVisibility");
                 RaisePropertyChanged("PathVariable");
             }
+        }
+
+        private void Compose()
+        {
+            var catalog = new DirectoryCatalog(".", "*.dll");
+            CompositionContainer container = new CompositionContainer(catalog);
+            container.SatisfyImportsOnce(this);
         }
         #endregion
     }
