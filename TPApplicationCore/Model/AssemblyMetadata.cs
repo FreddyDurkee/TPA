@@ -60,6 +60,11 @@ namespace TPApplicationCore.Model
             name = filename.Substring(0, filename.Length - 4);
             foreach (Type t in typy)
             {
+                TypeMetadata typeMetadata = new TypeMetadata(t.Name);
+                typeList.Add(t.Name, typeMetadata);
+            }
+            foreach (Type t in typy)
+            {
                 buildTypes(t);
             }
         }
@@ -72,18 +77,9 @@ namespace TPApplicationCore.Model
 
         public void buildTypes(Type type)
         {
-           TypeMetadata typeMetadata;
+           TypeMetadata typeMetadata = typeList[type.Name];
             Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Loading class: " + type.Name);
 
-            if (typeList.TryGetValue(type.Name, out typeMetadata))
-            {
-                //DO NOTHING
-            }
-            else
-            {
-                typeMetadata = new TypeMetadata(type.Name);
-                typeList.Add(type.Name, typeMetadata);
-            }
             if (type.IsPrimitive != true)
             {
                 buildMethods(typeMetadata, type);
@@ -105,6 +101,7 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
+                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + index.ReturnType.Name);
                     typeObj = new TypeMetadata(index.ReturnType.Name);
                     metoda = new MethodMetadata(index.Name, typeObj);
                 }
@@ -126,11 +123,12 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
+                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + index.ReturnType.Name);
                     typeMetadata = new TypeMetadata(index.ReturnType.Name);
                     method = new MethodMetadata(index.Name, typeMetadata);
                 }
                 buildParameters(method, index);
-
+                property.getAccessorList().Add(method);
             }
         }
         public void buildFields(TypeMetadata typeMetadata, Type type)
@@ -146,6 +144,7 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
+                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + f.FieldType.Name);
                     typeObj = new TypeMetadata(f.FieldType.Name);
                     field = new FieldMetadata(f.Name, typeObj);
                 }
@@ -161,12 +160,13 @@ namespace TPApplicationCore.Model
             {
                 PropertyMetadata property;
                TypeMetadata typeObj;
-                if (typeList.TryGetValue(p.Name, out typeObj))
+                if (typeList.TryGetValue(p.PropertyType.Name, out typeObj))
                 {
                     property = new PropertyMetadata(p.Name, typeObj);
                 }
                 else
                 {
+                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + p.PropertyType.Name);
                     typeObj = new TypeMetadata(p.PropertyType.Name);
                     property = new PropertyMetadata(p.Name, typeObj);
                 }
@@ -181,12 +181,13 @@ namespace TPApplicationCore.Model
             {
                 ParameterMetadata parameter;
                TypeMetadata typeObj;
-                if (typeList.TryGetValue(p.Name, out typeObj))
+                if (typeList.TryGetValue(p.ParameterType.Name, out typeObj))
                 {
-                    parameter = new ParameterMetadata(p.Name, typeObj);
+                    parameter = new ParameterMetadata(p.ParameterType.Name, typeObj);
                 }
                 else
                 {
+                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + p.ParameterType.Name);
                     typeObj = new TypeMetadata(p.ParameterType.Name);
                     parameter = new ParameterMetadata(p.Name, typeObj);
                 }

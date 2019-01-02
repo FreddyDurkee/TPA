@@ -31,7 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +50,13 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\ModelToDBConverter.cs" />
+    <Compile Include="Model\db\AssemblyDbModel.cs" />
+    <Compile Include="Model\db\FieldDbModel.cs" />
+    <Compile Include="Model\db\MethodDbModel.cs" />
+    <Compile Include="Model\db\ParameterDbModel.cs" />
+    <Compile Include="Model\db\PropertyDbModel.cs" />
+    <Compile Include="Model\db\TypeDbModel.cs" />
     <Compile Include="Model\xml\AssemblyXmlModel.cs" />
     <Compile Include="DBSerializer.cs" />
     <Compile Include="Model\xml\FieldXmlModel.cs" />
@@ -56,7 +70,10 @@
     <Compile Include="Model\xml\TypeXmlModel.cs" />
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
       <Project>{AE36A566-0042-49D2-ABBC-DD55A01F5BE4}</Project>

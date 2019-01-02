@@ -10,8 +10,8 @@ namespace Serialize.Api
 {
     public interface IDBSerializer
     {
-    void serialize(AssemblyXmlModel obj);
+    void serialize(AssemblyMetadata obj);
 
-    AssemblyXmlModel deserialize(string modelID);
+    AssemblyMetadata deserialize(int modelID);
     }
 }

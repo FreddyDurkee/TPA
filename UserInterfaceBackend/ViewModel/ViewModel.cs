@@ -21,6 +21,7 @@ namespace UIBackend.ViewModel
         public System.Collections.ObjectModel.ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         private Dictionary<string, AssemblyMetadata> connectedModels;
         private IFileSerializer xmlSerializer = new XMLSerializer();
+        private IDBSerializer dBSerializer = new DBSerializer();
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
@@ -69,7 +70,8 @@ namespace UIBackend.ViewModel
             }
             else if((PathVariable.Substring(PathVariable.Length - 4) == ".xml"))
             {
-                AssemblyMetadata model = xmlSerializer.deserialize(PathVariable);
+                //AssemblyMetadata model = xmlSerializer.deserialize(PathVariable);
+                AssemblyMetadata model = dBSerializer.deserialize(1);
                 TreeViewLoaded(model);
             }
             else
@@ -83,7 +85,8 @@ namespace UIBackend.ViewModel
             AssemblyMetadata tmp_model;
             if (connectedModels.TryGetValue(PathVariable, out tmp_model))
             {
-                xmlSerializer.serialize(tmp_model, PathVariable);
+                //xmlSerializer.serialize(tmp_model, PathVariable);
+                dBSerializer.serialize(tmp_model);
             }
 
         }
