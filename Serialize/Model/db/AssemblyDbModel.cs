@@ -14,18 +14,18 @@ namespace Serialize.Model.Db
         public AssemblyDbModel(string name)
         {
             Name = name;
-            typeList = new List<TypeDbModel>();
-            fieldList = new List<FieldDbModel>();
-            methodList = new List<MethodDbModel>();
-            propertyList = new List<PropertyDbModel>();
+            Types = new List<TypeDbModel>();
+            Fields = new List<FieldDbModel>();
+            Methods = new List<MethodDbModel>();
+            Properties = new List<PropertyDbModel>();
         }
 
         [Key]
         public int Id { get; set; }
-        public List<TypeDbModel> typeList { get; set; }
-        public List<FieldDbModel> fieldList { get; set; }
-        public List<MethodDbModel> methodList { get; set; }
-        public List<PropertyDbModel> propertyList { get; set; }
+        public List<TypeDbModel> Types { get; set; }
+        public List<FieldDbModel> Fields { get; set; }
+        public List<MethodDbModel> Methods { get; set; }
+        public List<PropertyDbModel> Properties { get; set; }
         public string Name { get; set; }
     }
 }

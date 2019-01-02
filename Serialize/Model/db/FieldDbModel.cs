@@ -5,6 +5,7 @@ namespace Serialize.Model.Db
 
     public class FieldDbModel
     {
+        public FieldDbModel() { }
         public FieldDbModel(string name, TypeDbModel type)
         {
             this.Name = name;

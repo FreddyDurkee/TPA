@@ -6,6 +6,7 @@ namespace Serialize.Model.Db
 
     public class PropertyDbModel
     {
+        public PropertyDbModel() { }
         public PropertyDbModel(string name, TypeDbModel type)
         {
             Name = name;

@@ -16,7 +16,7 @@ namespace Serialize.Converter
             {
               TypeDbModel dbType = new TypeDbModel(type.getName(),true);
               mapper.Add(type, dbType);
-              dbAssamblyModel.typeList.Add(dbType);
+              dbAssamblyModel.Types.Add(dbType);
             }
 
             Dictionary<string, TypeDbModel> unknownTypes = new Dictionary<string, TypeDbModel>();
@@ -24,7 +24,7 @@ namespace Serialize.Converter
             {
                 fillDTOData(key, mapper,unknownTypes, dbAssamblyModel);
             }
-            dbAssamblyModel.typeList.AddRange(unknownTypes.Values);
+            dbAssamblyModel.Types.AddRange(unknownTypes.Values);
             return dbAssamblyModel;
         }
 
@@ -36,7 +36,7 @@ namespace Serialize.Converter
             {
                 FieldDbModel dbField = new FieldDbModel(field.getName(), retrieveDbType(mapper,unknownTypes, field.getType()));
                 dbField.Owner = dbType;
-                dbAssamblyModel.fieldList.Add(dbField);
+                dbAssamblyModel.Fields.Add(dbField);
             }
 
             foreach (MethodMetadata method in key.getMethodsList())
@@ -49,7 +49,7 @@ namespace Serialize.Converter
                     ParameterDbModel dbParameter = new ParameterDbModel(parameter.getName(), retrieveDbType(mapper, unknownTypes, parameter.getType()));
                     dbMethod.Parameters.Add(dbParameter);
                 }
-                dbAssamblyModel.methodList.Add(dbMethod);
+                dbAssamblyModel.Methods.Add(dbMethod);
             }
 
             foreach (PropertyMetadata property in key.getPropertiesList())
@@ -67,9 +67,9 @@ namespace Serialize.Converter
                         ParameterDbModel dbParameter = new ParameterDbModel(parameter.getName(), retrieveDbType(mapper, unknownTypes, parameter.getType()));
                         dbMethod.Parameters.Add(dbParameter);
                     }
-                    dbAssamblyModel.methodList.Add(dbMethod);
+                    dbAssamblyModel.Methods.Add(dbMethod);
                 }
-                dbAssamblyModel.propertyList.Add(dbProperty);
+                dbAssamblyModel.Properties.Add(dbProperty);
             }
             
         }
@@ -106,7 +106,7 @@ namespace Serialize.Converter
             AssemblyMetadata assembly = new AssemblyMetadata(dto.Name, types);
             Dictionary<TypeDbModel, TypeMetadata> mapper = new Dictionary<TypeDbModel, TypeMetadata>();
 
-            foreach (TypeDbModel dbType in dto.typeList)
+            foreach (TypeDbModel dbType in dto.Types)
             {
                 TypeMetadata type = new TypeMetadata(dbType.Name);
                 mapper.Add(dbType, type);
@@ -130,7 +130,7 @@ namespace Serialize.Converter
             
             TypeMetadata type = mapper[key];
             
-            foreach (FieldDbModel dbField in dto.fieldList)
+            foreach (FieldDbModel dbField in dto.Fields)
             {
                 if (dbField.Owner.Equals(key))
                 {
@@ -150,7 +150,7 @@ namespace Serialize.Converter
                 type.getMethodsList().Add(method);
             }
 
-            foreach (PropertyDbModel dbProperty in dto.propertyList)
+            foreach (PropertyDbModel dbProperty in dto.Properties)
             {
                 PropertyMetadata property = new PropertyMetadata(dbProperty.Name, retrieveType(mapper, dbProperty.Type));
                 foreach (MethodDbModel dbMethod in dbProperty.Accessors)

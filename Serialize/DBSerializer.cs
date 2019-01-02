@@ -5,6 +5,7 @@ using Serialize.Api;
 using Serialize.Converter;
 using TPApplicationCore.Model;
 using System.Linq;
+using System;
 
 namespace Serialize
 {
@@ -13,27 +14,34 @@ namespace Serialize
 
         ModelToDBConverter converter = new ModelToDBConverter();
 
-        public AssemblyMetadata deserialize(int modelId)
+        public AssemblyMetadata deserialize()
         {
-            using (var ctx = new SerializationContext())
+            int modelId = 1;
+            using (var ctx = new SerializationContext(false))
             {
-                AssemblyDbModel model = (from a in ctx.Assemblies where a.Id.Equals(modelId)  select a).First();
-                if(model != null) {
+              
+                    AssemblyDbModel model = ctx.Assemblies.Where(a => a.Id.Equals(modelId))
+                        .Include("Fields")
+                        .Include("Methods")
+                        .Include("Properties")
+                        .Include("Types")
+                        .Include("Methods.Parameters")
+                        .Include("Methods.OwnerType")
+                        .Include("Methods.OwnerProperty")
+                        .Include("Properties.Accessors")
+                        .Include("Types.Methods")
+                        .First();
                     return converter.FromDTO(model);
-                }
-                else
-                {
-                    return null;
-                }
-                
+ 
             }
         }
 
         public void serialize(AssemblyMetadata obj)
         {
-            using (var ctx = new SerializationContext())
+            using (var ctx = new SerializationContext(true))
             {
                 var actual = converter.ToDTO(obj);
+                actual.Id = 1;
                 ctx.Assemblies.Add(actual);
                 ctx.SaveChanges();
             }
@@ -41,10 +49,12 @@ namespace Serialize
 
         public class SerializationContext : DbContext
         {
-            public SerializationContext():base("name=TPASerialize")
+            public SerializationContext(bool reset):base("name=TPASerialize")
             {
-                this.Configuration.ProxyCreationEnabled = false;
-                Database.SetInitializer<SerializationContext>(new DropCreateDatabaseAlways<SerializationContext>());
+                if (reset) {
+                    Database.Delete();
+                }
+                
             }
 
             public DbSet<AssemblyDbModel> Assemblies { get; set; }

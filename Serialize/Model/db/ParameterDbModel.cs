@@ -4,6 +4,7 @@ namespace Serialize.Model.Db
 {
     public class ParameterDbModel
     {
+        public ParameterDbModel() { }
         public ParameterDbModel(string name, TypeDbModel type)
         {
             Name = name;

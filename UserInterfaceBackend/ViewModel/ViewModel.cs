@@ -27,6 +27,8 @@ namespace UIBackend.ViewModel
         public ICommand Click_Browse { get; }
         public ICommand Click_Serialize { get; }
         public ICommand Click_ShowTreeView { get; }
+        public ICommand Click_SaveToDb { get; }
+        public ICommand Click_ReadFromDb { get; }
         public IBrowser Browser { get; set; }
         #endregion
 
@@ -39,6 +41,8 @@ namespace UIBackend.ViewModel
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
             Click_Serialize = new DelegateCommand(Serialize);
+            Click_SaveToDb = new DelegateCommand(SaveToDb);
+            Click_ReadFromDb = new DelegateCommand(ReadFromDb);
         }
 
         public ViewModel()
@@ -49,6 +53,8 @@ namespace UIBackend.ViewModel
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
             Click_Serialize = new DelegateCommand(Serialize);
+            Click_SaveToDb = new DelegateCommand(SaveToDb);
+            Click_ReadFromDb = new DelegateCommand(ReadFromDb);
         }
         #endregion
 
@@ -70,8 +76,7 @@ namespace UIBackend.ViewModel
             }
             else if((PathVariable.Substring(PathVariable.Length - 4) == ".xml"))
             {
-                //AssemblyMetadata model = xmlSerializer.deserialize(PathVariable);
-                AssemblyMetadata model = dBSerializer.deserialize(1);
+                AssemblyMetadata model = xmlSerializer.deserialize(PathVariable);
                 TreeViewLoaded(model);
             }
             else
@@ -85,11 +90,28 @@ namespace UIBackend.ViewModel
             AssemblyMetadata tmp_model;
             if (connectedModels.TryGetValue(PathVariable, out tmp_model))
             {
-                //xmlSerializer.serialize(tmp_model, PathVariable);
+                xmlSerializer.serialize(tmp_model, PathVariable);
+            }
+
+        }
+
+        public void SaveToDb()
+        {
+            AssemblyMetadata tmp_model;
+            if (connectedModels.TryGetValue(PathVariable, out tmp_model))
+            {
                 dBSerializer.serialize(tmp_model);
             }
 
         }
+
+
+        public void ReadFromDb()
+        {
+            AssemblyMetadata model = dBSerializer.deserialize();
+            TreeViewLoaded(model);
+        }
+
         #endregion
 
         #region private
@@ -99,9 +121,9 @@ namespace UIBackend.ViewModel
             TreeViewItem rootItem = new TreeViewItem(model,true) { Name = model.name };
             Logger.log(System.Diagnostics.TraceEventType.Information, "New model loaded:" + rootItem.Name);
             HierarchicalAreas.Add(rootItem);
-            if (!connectedModels.ContainsKey(PathVariable))
+            if (!connectedModels.ContainsKey(model.name))
             {
-                connectedModels.Add(PathVariable, model);
+                connectedModels.Add(model.name, model);
             }
         }
 

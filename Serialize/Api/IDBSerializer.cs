@@ -12,6 +12,6 @@ namespace Serialize.Api
     {
     void serialize(AssemblyMetadata obj);
 
-    AssemblyMetadata deserialize(int modelID);
+    AssemblyMetadata deserialize();
     }
 }

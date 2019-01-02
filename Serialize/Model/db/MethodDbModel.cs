@@ -5,6 +5,7 @@ namespace Serialize.Model.Db
 {
     public class MethodDbModel
     {
+        public MethodDbModel() { }
         public MethodDbModel(string name, TypeDbModel returnType)
         {
             Name = name;
