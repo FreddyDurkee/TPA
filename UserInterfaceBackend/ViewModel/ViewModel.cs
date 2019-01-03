@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml;
 using TPApplicationCore.Model;
 using TPApplicationCore.Logging;
-using Serialize.Api;
-using Serialize;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using DataTransferGraph.Api;
 
 namespace UIBackend.ViewModel
 {
@@ -22,18 +19,19 @@ namespace UIBackend.ViewModel
         #region DataContext
         public System.Collections.ObjectModel.ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         private Dictionary<string, AssemblyMetadata> connectedModels;
-        [Import]
-        public IFileSerializer Serializer;
-        [Import]
-        private IDBSerializer dBSerializer;
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
         public ICommand Click_Serialize { get; }
         public ICommand Click_ShowTreeView { get; }
         public ICommand Click_SaveToDb { get; }
-        public ICommand Click_ReadFromDb { get; }
+        public ICommand Click_Deserialize { get; }
+        public ICommand Click_SerializeSource { get; }
         public IBrowser Browser { get; set; }
+        [Import]
+        public ISerializer Serializer { get; set; }
+
+
         #endregion
 
         #region constructor
@@ -45,9 +43,22 @@ namespace UIBackend.ViewModel
             Click_ShowTreeView = new DelegateCommand(LoadDLL);
             Click_Browse = new DelegateCommand(Browse);
             Click_Serialize = new DelegateCommand(Serialize);
-            Click_SaveToDb = new DelegateCommand(SaveToDb);
-            Click_ReadFromDb = new DelegateCommand(ReadFromDb);
-            Compose();
+            Click_Deserialize = new DelegateCommand(Deserialize);
+            Click_SerializeSource = new RelayCommand(SetSerializeSource);
+            
+        }
+
+        private void SetSerializeSource(object obj)
+        {
+            string checkBoxName = (string)obj;
+            if ("xml".Equals(checkBoxName))
+            {
+                Compose("Serialize.dll");
+            }
+            else
+            {
+                Compose("DbSerialize.dll");
+            }
         }
 
         public ViewModel(): this(new SimpleBrowser())
@@ -71,11 +82,6 @@ namespace UIBackend.ViewModel
                 AssemblyMetadata model = new AssemblyMetadata(PathVariable);
                 TreeViewLoaded(model);
             }
-            else if((PathVariable.Substring(PathVariable.Length - 4) == ".xml"))
-            {
-                AssemblyMetadata model = Serializer.deserialize(PathVariable);
-                TreeViewLoaded(model);
-            }
             else
             {
                 Console.WriteLine("Incorrect path ", PathVariable);
@@ -90,27 +96,16 @@ namespace UIBackend.ViewModel
             string modelName = filename.Substring(0, filename.Length - 4);
             if (connectedModels.TryGetValue(modelName, out tmp_model))
             {
-                Serializer.serialize(tmp_model, PathVariable);
+                //TODO: Serialize tmp_model
             }
 
         }
 
-        public void SaveToDb()
+ 
+        public void Deserialize()
         {
-            AssemblyMetadata tmp_model;
-            string filename = Path.GetFileName(PathVariable);
-            string modelName = filename.Substring(0, filename.Length - 4);
-            if (connectedModels.TryGetValue(modelName, out tmp_model))
-            {
-                dBSerializer.serialize(tmp_model);
-            }
-
-        }
-
-
-        public void ReadFromDb()
-        {
-            AssemblyMetadata model = dBSerializer.deserialize();
+            
+            AssemblyMetadata model = null;
             TreeViewLoaded(model);
         }
 
@@ -140,11 +135,11 @@ namespace UIBackend.ViewModel
             }
         }
 
-        private void Compose()
+        private void Compose(string dll)
         {
-            var catalog = new DirectoryCatalog(".", "*.dll");
+            var catalog = new DirectoryCatalog("../../../plugins",dll);
             CompositionContainer container = new CompositionContainer(catalog);
-            container.SatisfyImportsOnce(this);
+            container.ComposeParts(this);
         }
         #endregion
     }

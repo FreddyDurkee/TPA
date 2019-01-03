@@ -5,10 +5,10 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TPApplicationCore.Model
 
 {
-    [DataContract]
     public class TypeMetadata
     {
         #region private

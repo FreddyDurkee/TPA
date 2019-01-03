@@ -1,11 +1,11 @@
 ﻿using DataTransferGraph.Api;
 using DataTransferGraph.DTGModel;
-using Serialize.Converter;
-using Serialize.Model.Db;
+using DbSerialize.Converter;
+using DbSerialize.Model;
 using System.Data.Entity;
 using System.Linq;
 
-namespace Serialize
+namespace DbSerialize
 {
     public class DBSerializer : ISerializer
     {

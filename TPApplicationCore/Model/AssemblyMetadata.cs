@@ -5,16 +5,12 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-
 namespace TPApplicationCore.Model
 {
-    [DataContract]
     public class AssemblyMetadata
     {
-        [DataMember]
         private Dictionary<string,TypeMetadata> typeList;
 
-        [DataMember]
         public string name;
 
         public Dictionary<string, TypeMetadata> typesList

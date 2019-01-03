@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE36A566-0042-49D2-ABBC-DD55A01F5BE4}</ProjectGuid>
+    <ProjectGuid>{3C59F35D-E996-4AD8-BA3D-DCA4AC8BEBA4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TPApplicationCore</RootNamespace>
-    <AssemblyName>TPApplicationCore</AssemblyName>
+    <RootNamespace>DataTransferGraph</RootNamespace>
+    <AssemblyName>DataTransferGraph</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,23 +29,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,24 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\ModelToDTGConverter.cs" />
-    <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Model\FieldMetadata.cs" />
-    <Compile Include="Model\AssemblyMetadata.cs" />
-    <Compile Include="Model\MethodMetadata.cs" />
-    <Compile Include="Model\ParameterMetadata.cs" />
-    <Compile Include="Model\PropertyMetadata.cs" />
-    <Compile Include="Model\TypeMetadata.cs" />
+    <Compile Include="Api\ISerializer.cs" />
+    <Compile Include="DTGModel\AssemblyDTG.cs" />
+    <Compile Include="DTGModel\FieldDTG.cs" />
+    <Compile Include="DTGModel\MethodDTG.cs" />
+    <Compile Include="DTGModel\ParameterDTG.cs" />
+    <Compile Include="DTGModel\PropertyDTG.cs" />
+    <Compile Include="DTGModel\TypeDTG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataTransferGraph\DataTransferGraph.csproj">
-      <Project>{3c59f35d-e996-4ad8-ba3d-dca4ac8beba4}</Project>
-      <Name>DataTransferGraph</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

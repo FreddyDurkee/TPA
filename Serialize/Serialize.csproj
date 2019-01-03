@@ -61,8 +61,6 @@
     <Compile Include="Model\xml\AssemblyXmlModel.cs" />
     <Compile Include="DBSerializer.cs" />
     <Compile Include="Model\xml\FieldXmlModel.cs" />
-    <Compile Include="Api\IDBSerializer.cs" />
-    <Compile Include="Api\IFileSerializer.cs" />
     <Compile Include="Model\xml\MethodXmlModel.cs" />
     <Compile Include="Converter\ModelToXMLConverter.cs" />
     <Compile Include="Model\xml\ParameterXmlModel.cs" />
@@ -77,9 +75,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
-      <Project>{AE36A566-0042-49D2-ABBC-DD55A01F5BE4}</Project>
-      <Name>TPApplicationCore</Name>
+    <ProjectReference Include="..\DataTransferGraph\DataTransferGraph.csproj">
+      <Project>{3c59f35d-e996-4ad8-ba3d-dca4ac8beba4}</Project>
+      <Name>DataTransferGraph</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

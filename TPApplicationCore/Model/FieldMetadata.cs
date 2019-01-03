@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace TPApplicationCore.Model
 {
-    [DataContract]
     public class FieldMetadata
     {
         #region private
-        [DataMember]
         private string name;
-        [DataMember]
         private TypeMetadata type;
         #endregion
         

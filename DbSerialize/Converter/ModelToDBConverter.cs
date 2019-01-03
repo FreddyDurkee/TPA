@@ -1,8 +1,8 @@
 ﻿using DataTransferGraph.DTGModel;
-using Serialize.Model.Db;
+using DbSerialize.Model;
 using System.Collections.Generic;
 
-namespace Serialize.Converter
+namespace DbSerialize.Converter
 {
     class ModelToDBConverter
     {

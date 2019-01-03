@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace TPApplicationCore.Model
 {
-    [DataContract]
     public class PropertyMetadata
     {
         #region private
-        [DataMember]
         private string name;
-        [DataMember]
         private TypeMetadata type;
-        [DataMember]
         private List<MethodMetadata> accessorList;
         #endregion
 
