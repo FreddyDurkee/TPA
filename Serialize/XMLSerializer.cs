@@ -17,7 +17,7 @@ namespace Serialize
             FileStream fs = new FileStream(filePath, FileMode.Open);
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, XmlDictionaryReaderQuotas.Max);
             NetDataContractSerializer ser = new NetDataContractSerializer();
-            AssemblyXmlModel xmlModel = (AssemblyXmlModel)ser.ReadObject(reader, true);
+            AssemblyXmlModel xmlModel = (AssemblyXmlModel)ser.ReadObject(reader, false);
             reader.Close();
             return converter.FromDTO(xmlModel);
         }

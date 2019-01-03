@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -61,10 +62,6 @@
     <Compile Include="ViewModel\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataTransferGraph\DataTransferGraph.csproj">
-      <Project>{3c59f35d-e996-4ad8-ba3d-dca4ac8beba4}</Project>
-      <Name>DataTransferGraph</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
       <Project>{ae36a566-0042-49d2-abbc-dd55a01f5be4}</Project>
       <Name>TPApplicationCore</Name>

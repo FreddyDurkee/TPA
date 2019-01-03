@@ -9,7 +9,7 @@ using TPApplicationCore.Model;
 using TPApplicationCore.Logging;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using DataTransferGraph.Api;
+using TPApplicationCore.Serialization;
 
 namespace UIBackend.ViewModel
 {
@@ -28,8 +28,8 @@ namespace UIBackend.ViewModel
         public ICommand Click_Deserialize { get; }
         public ICommand Click_SerializeSource { get; }
         public IBrowser Browser { get; set; }
-        [Import]
-        public ISerializer Serializer { get; set; }
+        public SerializationManager SerializationManager { get; set; }
+        private bool isXMLSerializer = false;
 
 
         #endregion
@@ -45,7 +45,7 @@ namespace UIBackend.ViewModel
             Click_Serialize = new DelegateCommand(Serialize);
             Click_Deserialize = new DelegateCommand(Deserialize);
             Click_SerializeSource = new RelayCommand(SetSerializeSource);
-            
+            SerializationManager = new SerializationManager();
         }
 
         private void SetSerializeSource(object obj)
@@ -54,10 +54,12 @@ namespace UIBackend.ViewModel
             if ("xml".Equals(checkBoxName))
             {
                 Compose("Serialize.dll");
+                isXMLSerializer = true;
             }
             else
             {
                 Compose("DbSerialize.dll");
+                isXMLSerializer = false;
             }
         }
 
@@ -96,7 +98,7 @@ namespace UIBackend.ViewModel
             string modelName = filename.Substring(0, filename.Length - 4);
             if (connectedModels.TryGetValue(modelName, out tmp_model))
             {
-                //TODO: Serialize tmp_model
+                SerializationManager.serialize(tmp_model,PathVariable);
             }
 
         }
@@ -104,8 +106,17 @@ namespace UIBackend.ViewModel
  
         public void Deserialize()
         {
-            
             AssemblyMetadata model = null;
+            if (isXMLSerializer)
+            {
+                if (Browser.Browse()) {
+                    model = SerializationManager.deserialize(Browser.fileName);
+                }
+            }
+            else
+            {
+                model = SerializationManager.deserialize("");
+            }
             TreeViewLoaded(model);
         }
 
@@ -137,9 +148,10 @@ namespace UIBackend.ViewModel
 
         private void Compose(string dll)
         {
-            var catalog = new DirectoryCatalog("../../../plugins",dll);
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new DirectoryCatalog(".", dll));
             CompositionContainer container = new CompositionContainer(catalog);
-            container.ComposeParts(this);
+            container.ComposeParts(SerializationManager);
         }
         #endregion
     }
