@@ -52,15 +52,7 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\ModelToDBConverter.cs" />
-    <Compile Include="Model\db\AssemblyDbModel.cs" />
-    <Compile Include="Model\db\FieldDbModel.cs" />
-    <Compile Include="Model\db\MethodDbModel.cs" />
-    <Compile Include="Model\db\ParameterDbModel.cs" />
-    <Compile Include="Model\db\PropertyDbModel.cs" />
-    <Compile Include="Model\db\TypeDbModel.cs" />
     <Compile Include="Model\xml\AssemblyXmlModel.cs" />
-    <Compile Include="DBSerializer.cs" />
     <Compile Include="Model\xml\FieldXmlModel.cs" />
     <Compile Include="Model\xml\MethodXmlModel.cs" />
     <Compile Include="Converter\ModelToXMLConverter.cs" />

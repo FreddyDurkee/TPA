@@ -4,7 +4,7 @@ namespace Serialize
 {
     class SerializerFactory
     {
-        [Export()]
-        public ISerializer XmlSerializer { get { return new XMLSerializer(); } }
+       
+        //public ISerializer XmlSerializer { get { return new XMLSerializer(); } }
     }
 }

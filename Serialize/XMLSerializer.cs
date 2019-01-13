@@ -5,12 +5,21 @@ using System.Runtime.Serialization;
 using System.Xml;
 using DataTransferGraph.Api;
 using DataTransferGraph.DTGModel;
+using System.ComponentModel.Composition;
 
 namespace Serialize
 {
+    [Export(typeof(ISerializer))]
     public class XMLSerializer : ISerializer
     {
         ModelToXMLConverter converter = new ModelToXMLConverter();
+        private string fileName;
+
+        [ImportingConstructor]
+        public XMLSerializer([Import("fileName")] string fileName)
+        {
+            this.fileName = fileName;
+        }
 
         public AssemblyDTG deserialize(string filePath)
         {

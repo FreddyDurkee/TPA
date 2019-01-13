@@ -10,6 +10,8 @@ using TPApplicationCore.Logging;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using TPApplicationCore.Serialization;
+using AppConfiguration;
+using AppConfiguration.Model;
 
 namespace UIBackend.ViewModel
 {
@@ -30,6 +32,7 @@ namespace UIBackend.ViewModel
         public IBrowser Browser { get; set; }
         public SerializationManager SerializationManager { get; set; }
         private bool isXMLSerializer = false;
+        private ConfigurationManager appConfManager = new ConfigurationManager(@"./appconf.xml");
 
 
         #endregion
@@ -148,9 +151,14 @@ namespace UIBackend.ViewModel
 
         private void Compose(string dll)
         {
+            SerializerConfig serConf = appConfManager.getSerializerConfig();
             AggregateCatalog catalog = new AggregateCatalog();
-            catalog.Catalogs.Add(new DirectoryCatalog(".", dll));
+            catalog.Catalogs.Add(new DirectoryCatalog(serConf.AssemblyCatalog, serConf.AssemblyName));
             CompositionContainer container = new CompositionContainer(catalog);
+            foreach(String key in serConf.constructorArgs.Keys)
+            {
+                container.ComposeExportedValue(key, serConf.constructorArgs[key]);
+            }
             container.ComposeParts(SerializationManager);
         }
         #endregion

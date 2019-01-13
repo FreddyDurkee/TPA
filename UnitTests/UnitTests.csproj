@@ -52,6 +52,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationManagementTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppConfiguration\AppConfiguration.csproj">
+      <Project>{e7e3152f-0cd2-4c1d-8ec5-1d9c272743f2}</Project>
+      <Name>AppConfiguration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
       <Project>{ae36a566-0042-49d2-abbc-dd55a01f5be4}</Project>
       <Name>TPApplicationCore</Name>
