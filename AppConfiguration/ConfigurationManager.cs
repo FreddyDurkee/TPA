@@ -39,7 +39,7 @@ namespace AppConfiguration
 
         public SerializerConfig getSerializerConfig()
         {
-            return getApplicationConfiguration().serializerConfig;
+            return getApplicationConfiguration().SerializerConfig;
         }
     }
 }

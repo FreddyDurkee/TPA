@@ -123,9 +123,9 @@ namespace UIBackend.ViewModel
             AggregateCatalog catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new DirectoryCatalog(serConf.AssemblyCatalog, serConf.AssemblyName));
             CompositionContainer container = new CompositionContainer(catalog);
-            foreach(String key in serConf.constructorArgs.Keys)
+            foreach(String key in serConf.ConstructorArgs.Keys)
             {
-                container.ComposeExportedValue(key, serConf.constructorArgs[key]);
+                container.ComposeExportedValue(key, serConf.ConstructorArgs[key]);
             }
             container.ComposeParts(manager);
             return manager;

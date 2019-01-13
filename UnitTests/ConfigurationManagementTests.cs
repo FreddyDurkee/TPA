@@ -12,11 +12,11 @@ namespace UnitTests
         public void TestMethod1()
         {
             ApplicationConfiguration config = new ApplicationConfiguration();
-            config.serializerConfig = new SerializerConfig();
-            config.serializerConfig.AssemblyCatalog = "C:/";
-            config.serializerConfig.AssemblyName = "assembly.dll";
-            config.serializerConfig.constructorArgs = new AppConfiguration.Model.generic.DictionaryStruct();
-            config.serializerConfig.constructorArgs.Add("fileName", "a.xml");
+            config.SerializerConfig = new SerializerConfig();
+            config.SerializerConfig.AssemblyCatalog = "C:/";
+            config.SerializerConfig.AssemblyName = "assembly.dll";
+            config.SerializerConfig.ConstructorArgs = new AppConfiguration.Model.generic.DictionaryStruct();
+            config.SerializerConfig.ConstructorArgs.Add("fileName", "a.xml");
             ConfigurationManager manager = new ConfigurationManager(@"..\..\appconf.xml");
             manager.overrideFileConfig(config);
         }

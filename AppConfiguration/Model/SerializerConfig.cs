@@ -13,6 +13,6 @@ namespace AppConfiguration.Model
     {
         public string AssemblyName { get; set; }
         public string AssemblyCatalog { get; set; }
-        public DictionaryStruct constructorArgs { get; set; }
+        public DictionaryStruct ConstructorArgs { get; set; }
     }
 }
