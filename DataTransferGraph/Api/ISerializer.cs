@@ -9,8 +9,8 @@ namespace DataTransferGraph.Api
 {
     public interface ISerializer
     {
-        void serialize(AssemblyDTG obj, string filePath);
+        void serialize(AssemblyDTG obj);
 
-        AssemblyDTG deserialize(string filePath);
+        AssemblyDTG deserialize();
     }
 }

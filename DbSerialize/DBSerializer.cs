@@ -20,7 +20,7 @@ namespace DbSerialize
             this.connectionString = connectionString;
         }
 
-        public AssemblyDTG deserialize(string filePath)
+        public AssemblyDTG deserialize()
         {
             int modelId = 1;
             using (var ctx = new SerializationContext(connectionString, false))
@@ -42,7 +42,7 @@ namespace DbSerialize
             }
         }
 
-        public void serialize(AssemblyDTG obj, string filePath)
+        public void serialize(AssemblyDTG obj)
         {
             using (var ctx = new SerializationContext(connectionString, true))
             {

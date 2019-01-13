@@ -20,13 +20,13 @@ namespace TPApplicationCore.Serialization
 
         private ModelToDTGConverter converter = new ModelToDTGConverter();
 
-        public void serialize(AssemblyMetadata data, string path)
+        public void serialize(AssemblyMetadata data)
         {
-            Serializer.serialize(converter.ToDTG(data), path);
+            Serializer.serialize(converter.ToDTG(data));
         }
 
-        public AssemblyMetadata deserialize(string path) {
-            return converter.FromDTG(Serializer.deserialize(path));
+        public AssemblyMetadata deserialize() {
+            return converter.FromDTG(Serializer.deserialize());
         }
     }
 }

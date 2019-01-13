@@ -26,12 +26,8 @@ namespace UIBackend.ViewModel
         public ICommand Click_Browse { get; }
         public ICommand Click_Serialize { get; }
         public ICommand Click_ShowTreeView { get; }
-        public ICommand Click_SaveToDb { get; }
         public ICommand Click_Deserialize { get; }
-        public ICommand Click_SerializeSource { get; }
         public IBrowser Browser { get; set; }
-        public SerializationManager SerializationManager { get; set; }
-        private bool isXMLSerializer = false;
         private ConfigurationManager appConfManager = new ConfigurationManager(@"./appconf.xml");
 
 
@@ -47,23 +43,6 @@ namespace UIBackend.ViewModel
             Click_Browse = new DelegateCommand(Browse);
             Click_Serialize = new DelegateCommand(Serialize);
             Click_Deserialize = new DelegateCommand(Deserialize);
-            Click_SerializeSource = new RelayCommand(SetSerializeSource);
-            SerializationManager = new SerializationManager();
-        }
-
-        private void SetSerializeSource(object obj)
-        {
-            string checkBoxName = (string)obj;
-            if ("xml".Equals(checkBoxName))
-            {
-                Compose("Serialize.dll");
-                isXMLSerializer = true;
-            }
-            else
-            {
-                Compose("DbSerialize.dll");
-                isXMLSerializer = false;
-            }
         }
 
         public ViewModel(): this(new SimpleBrowser())
@@ -101,7 +80,7 @@ namespace UIBackend.ViewModel
             string modelName = filename.Substring(0, filename.Length - 4);
             if (connectedModels.TryGetValue(modelName, out tmp_model))
             {
-                SerializationManager.serialize(tmp_model,PathVariable);
+                ComposeSerializer().serialize(tmp_model);
             }
 
         }
@@ -109,18 +88,7 @@ namespace UIBackend.ViewModel
  
         public void Deserialize()
         {
-            AssemblyMetadata model = null;
-            if (isXMLSerializer)
-            {
-                if (Browser.Browse()) {
-                    model = SerializationManager.deserialize(Browser.fileName);
-                }
-            }
-            else
-            {
-                model = SerializationManager.deserialize("");
-            }
-            TreeViewLoaded(model);
+            TreeViewLoaded(ComposeSerializer().deserialize());
         }
 
         #endregion
@@ -128,7 +96,6 @@ namespace UIBackend.ViewModel
         #region private
         private void TreeViewLoaded(AssemblyMetadata model)
         {
-
             TreeViewItem rootItem = new TreeViewItem(model,true) { Name = model.name };
             Logger.log(System.Diagnostics.TraceEventType.Information, "New model loaded:" + rootItem.Name);
             HierarchicalAreas.Add(rootItem);
@@ -149,8 +116,9 @@ namespace UIBackend.ViewModel
             }
         }
 
-        private void Compose(string dll)
+        private SerializationManager ComposeSerializer()
         {
+            SerializationManager manager = new SerializationManager();
             SerializerConfig serConf = appConfManager.getSerializerConfig();
             AggregateCatalog catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new DirectoryCatalog(serConf.AssemblyCatalog, serConf.AssemblyName));
@@ -159,7 +127,8 @@ namespace UIBackend.ViewModel
             {
                 container.ComposeExportedValue(key, serConf.constructorArgs[key]);
             }
-            container.ComposeParts(SerializationManager);
+            container.ComposeParts(manager);
+            return manager;
         }
         #endregion
     }
