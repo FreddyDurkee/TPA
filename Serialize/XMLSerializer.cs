@@ -16,7 +16,7 @@ namespace Serialize
         private string fileName;
 
         [ImportingConstructor]
-        public XMLSerializer([Import("fileName")] string fileName)
+        public XMLSerializer([Import("XMLSerializer.FileName")] string fileName)
         {
             this.fileName = fileName;
         }

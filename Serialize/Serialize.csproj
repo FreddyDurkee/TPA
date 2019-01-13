@@ -60,7 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\xml\PropertyXmlModel.cs" />
     <Compile Include="Model\xml\TypeXmlModel.cs" />
-    <Compile Include="SerializerFactory.cs" />
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
   <ItemGroup>

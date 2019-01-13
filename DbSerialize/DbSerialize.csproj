@@ -58,7 +58,6 @@
     <Compile Include="Model\PropertyDbModel.cs" />
     <Compile Include="Model\TypeDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataTransferGraph\DataTransferGraph.csproj">

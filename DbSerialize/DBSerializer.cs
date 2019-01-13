@@ -2,19 +2,28 @@
 using DataTransferGraph.DTGModel;
 using DbSerialize.Converter;
 using DbSerialize.Model;
+using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.Linq;
 
 namespace DbSerialize
 {
+    [Export(typeof(ISerializer))]
     public class DBSerializer : ISerializer
     {
         ModelToDBConverter converter = new ModelToDBConverter();
+        private string connectionString;
+
+        [ImportingConstructor]
+        public DBSerializer([Import("DBSerializer.ConnectionString")] string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
         public AssemblyDTG deserialize(string filePath)
         {
             int modelId = 1;
-            using (var ctx = new SerializationContext(false))
+            using (var ctx = new SerializationContext(connectionString, false))
             {
               
                     AssemblyDbModel model = ctx.Assemblies.Where(a => a.Id.Equals(modelId))
@@ -35,7 +44,7 @@ namespace DbSerialize
 
         public void serialize(AssemblyDTG obj, string filePath)
         {
-            using (var ctx = new SerializationContext(true))
+            using (var ctx = new SerializationContext(connectionString, true))
             {
                 var actual = converter.ToDTO(obj);
                 actual.Id = 1;
@@ -46,7 +55,7 @@ namespace DbSerialize
 
         public class SerializationContext : DbContext
         {
-            public SerializationContext(bool reset):base("name=TPASerialize")
+            public SerializationContext(string connectionString,bool reset):base(connectionString)
             {
                 if (reset) {
                     Database.Delete();
