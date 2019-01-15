@@ -34,16 +34,6 @@ namespace AppConfiguration
             }
         }
 
-        public void overrideFileConfig(ApplicationConfiguration config)
-        {
-            //TODO: Temporary for generating valid config. Delete later.
-            using (FileStream fs = new FileStream(confPath, FileMode.Open))
-            {
-                XmlSerializer ser = new XmlSerializer(typeof(ApplicationConfiguration));
-                ser.Serialize(fs, config);
-            }
-        }
-
         public SerializerConfig getSerializerConfig()
         {
             return getApplicationConfiguration().SerializerConfig;
