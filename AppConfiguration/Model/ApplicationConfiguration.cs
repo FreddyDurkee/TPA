@@ -15,5 +15,6 @@ namespace AppConfiguration.Model
 
         }
         public SerializerConfig SerializerConfig;
+        public LoggerConfig LoggerConfig;
     }
 }

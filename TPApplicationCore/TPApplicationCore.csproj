@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\ModelToDTGConverter.cs" />
-    <Compile Include="Logging\Logger.cs" />
     <Compile Include="Model\FieldMetadata.cs" />
     <Compile Include="Model\AssemblyMetadata.cs" />
     <Compile Include="Model\MethodMetadata.cs" />
@@ -73,6 +72,10 @@
     <ProjectReference Include="..\DataTransferGraph\DataTransferGraph.csproj">
       <Project>{3c59f35d-e996-4ad8-ba3d-dca4ac8beba4}</Project>
       <Name>DataTransferGraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{8dd1318d-ea8a-4004-b0fa-7dc2715c84e9}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

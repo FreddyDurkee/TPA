@@ -4,11 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using Logging;
 
 namespace TPApplicationCore.Model
 {
     public class AssemblyMetadata
     {
+        private static TPALogger LOGGER = new TPALogger(typeof(AssemblyMetadata));
+
         private Dictionary<string,TypeMetadata> typeList;
 
         public string name;
@@ -74,7 +77,7 @@ namespace TPApplicationCore.Model
         public void buildTypes(Type type)
         {
            TypeMetadata typeMetadata = typeList[type.Name];
-            Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Loading class: " + type.Name);
+           LOGGER.Info( "Loading class: " + type.Name);
 
             if (type.IsPrimitive != true)
             {
@@ -97,7 +100,7 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
-                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + index.ReturnType.Name);
+                    LOGGER.Info( "Class not found, creating: " + index.ReturnType.Name);
                     typeObj = new TypeMetadata(index.ReturnType.Name);
                     metoda = new MethodMetadata(index.Name, typeObj);
                 }
@@ -119,7 +122,7 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
-                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + index.ReturnType.Name);
+                    LOGGER.Info( "Class not found, creating: " + index.ReturnType.Name);
                     typeMetadata = new TypeMetadata(index.ReturnType.Name);
                     method = new MethodMetadata(index.Name, typeMetadata);
                 }
@@ -140,7 +143,7 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
-                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + f.FieldType.Name);
+                    LOGGER.Info( "Class not found, creating: " + f.FieldType.Name);
                     typeObj = new TypeMetadata(f.FieldType.Name);
                     field = new FieldMetadata(f.Name, typeObj);
                 }
@@ -162,7 +165,7 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
-                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + p.PropertyType.Name);
+                    LOGGER.Info( "Class not found, creating: " + p.PropertyType.Name);
                     typeObj = new TypeMetadata(p.PropertyType.Name);
                     property = new PropertyMetadata(p.Name, typeObj);
                 }
@@ -183,7 +186,7 @@ namespace TPApplicationCore.Model
                 }
                 else
                 {
-                    Logging.Logger.log(System.Diagnostics.TraceEventType.Information, "Class not found, creating: " + p.ParameterType.Name);
+                    LOGGER.Info( "Class not found, creating: " + p.ParameterType.Name);
                     typeObj = new TypeMetadata(p.ParameterType.Name);
                     parameter = new ParameterMetadata(p.Name, typeObj);
                 }

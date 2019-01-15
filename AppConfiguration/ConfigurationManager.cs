@@ -14,10 +14,16 @@ namespace AppConfiguration
     public class ConfigurationManager
     {
         private string confPath;
+        private FileSystemWatcher fileWatcher;
 
         public ConfigurationManager(string confPath)
         {
             this.confPath = confPath;
+          
+            fileWatcher = new FileSystemWatcher(Path.GetDirectoryName(confPath));
+            fileWatcher.Filter = Path.GetFileName(confPath);
+            fileWatcher.NotifyFilter = NotifyFilters.LastWrite;
+            fileWatcher.EnableRaisingEvents = true;
         }
 
         public ApplicationConfiguration getApplicationConfiguration()
@@ -30,6 +36,7 @@ namespace AppConfiguration
 
         public void overrideFileConfig(ApplicationConfiguration config)
         {
+            //TODO: Temporary for generating valid config. Delete later.
             using (FileStream fs = new FileStream(confPath, FileMode.Open))
             {
                 XmlSerializer ser = new XmlSerializer(typeof(ApplicationConfiguration));
@@ -40,6 +47,16 @@ namespace AppConfiguration
         public SerializerConfig getSerializerConfig()
         {
             return getApplicationConfiguration().SerializerConfig;
+        }
+
+        public LoggerConfig getLoggerConfig()
+        {
+            return getApplicationConfiguration().LoggerConfig;
+        }
+
+        public void subscribeConfigurationChange(FileSystemEventHandler fileChangeHandler)
+        {
+            fileWatcher.Changed += fileChangeHandler;
         }
     }
 }

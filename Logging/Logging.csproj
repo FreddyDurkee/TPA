@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E7E3152F-0CD2-4C1D-8EC5-1D9C272743F2}</ProjectGuid>
+    <ProjectGuid>{8DD1318D-EA8A-4004-B0FA-7DC2715C84E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AppConfiguration</RootNamespace>
-    <AssemblyName>AppConfiguration</AssemblyName>
+    <RootNamespace>Logging</RootNamespace>
+    <AssemblyName>Logging</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,23 +31,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationManager.cs" />
-    <Compile Include="Model\ApplicationConfiguration.cs" />
-    <Compile Include="Model\generic\DictionaryStruct.cs" />
-    <Compile Include="Model\LoggerConfig.cs" />
-    <Compile Include="Model\SerializerConfig.cs" />
+    <Compile Include="ILogSaver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TPALogger.cs" />
+    <Compile Include="TPALogManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
