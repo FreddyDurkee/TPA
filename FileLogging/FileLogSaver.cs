@@ -17,7 +17,6 @@ namespace FileLogging
     public class FileLogSaver: ILogSaver
     {
         private static readonly string LOG_PATTERN = "%date [%thread] %-5level %logger - %message%newline";
-        private static readonly string REPOSITORY_NAME = "FileLogSaver.LogRepository";
         private string fileName;
 
         [ImportingConstructor]
