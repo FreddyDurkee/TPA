@@ -16,17 +16,23 @@ namespace FileLogging
     [Export(typeof(ILogSaver))]
     public class FileLogSaver: ILogSaver
     {
+        #region static
         private static readonly string LOG_PATTERN = "%date [%thread] %-5level %logger - %message%newline";
-        private string fileName;
+        #endregion
 
+        #region fields
+        private string fileName;
+        #endregion
+
+        #region init
         [ImportingConstructor]
         public FileLogSaver([Import("FileLogSaver.FileName")] string fileName)
         {
             this.fileName = fileName;
-            load();
+            Load();
         }
 
-        private void load() { 
+        private void Load() { 
                 Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
                 hierarchy.ResetConfiguration();
 
@@ -48,35 +54,40 @@ namespace FileLogging
                 hierarchy.Root.Level = Level.Info;
                 hierarchy.Configured = true;
         }
+        #endregion
 
-        private ILog getLogger(string loggerName)
+        #region private
+        private ILog GetLogger(string loggerName)
         {
             return LogManager.GetLogger(loggerName);
         }
+        #endregion
 
+        #region public
         public void Debug(string loggerName, string message)
         {
-            getLogger(loggerName).Debug(message);
+            GetLogger(loggerName).Debug(message);
         }
 
         public void Info(string loggerName, string message)
         {
-            getLogger(loggerName).Info(message);
+            GetLogger(loggerName).Info(message);
         }
 
         public void Warn(string loggerName, string message)
         {
-            getLogger(loggerName).Warn(message);
+            GetLogger(loggerName).Warn(message);
         }
 
         public void Error(string loggerName, string message)
         {
-            getLogger(loggerName).Error(message);
+            GetLogger(loggerName).Error(message);
         }
 
         public void Fatal(string loggerName, string message)
         {
-            getLogger(loggerName).Fatal(message);
+            GetLogger(loggerName).Fatal(message);
         }
+        #endregion
     }
 }
