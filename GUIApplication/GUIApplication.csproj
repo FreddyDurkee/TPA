@@ -160,7 +160,18 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>mkdir $(TargetDir)\plugins
+
+copy /y $(SolutionDir)\Serialize\$(OutDir)\Serialize.dll $(TargetDir)\plugins
+copy /y $(SolutionDir)\DbSerialize\$(OutDir)\DbSerialize.dll $(TargetDir)\plugins
+
+copy /y $(SolutionDir)\FileLogging\$(OutDir)\FileLogging.dll $(TargetDir)\plugins
+
+rem NuGet dependecies
+copy /y $(SolutionDir)\FileLogging\$(OutDir)\log4net.dll $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
