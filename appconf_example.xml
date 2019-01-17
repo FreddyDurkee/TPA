@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <ApplicationConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SerializerConfig>
-    <AssemblyCatalog>.\plugins</AssemblyCatalog>
+    <AssemblyCatalog>.</AssemblyCatalog>
     <AssemblyName>Serialize.dll</AssemblyName>
 	<ConstructorArgs>
       <XMLSerializer.FileName>ser.xml</XMLSerializer.FileName>
     </ConstructorArgs>
   </SerializerConfig>
   <LoggerConfig>
-    <AssemblyCatalog>.\plugins</AssemblyCatalog>
+    <AssemblyCatalog>.</AssemblyCatalog>
     <AssemblyName>DbLogging.dll</AssemblyName>
 	<ConstructorArgs>
       <DbLogSaver.ConnectionString>Data Source=.;Initial Catalog=TPADB;Integrated Security=True</DbLogSaver.ConnectionString>
