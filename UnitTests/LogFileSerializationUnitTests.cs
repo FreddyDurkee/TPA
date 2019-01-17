@@ -36,9 +36,25 @@ namespace UnitTests
 
             FileLogSaver fileLogSaver = new FileLogSaver(_logFilePath);
             fileLogSaver.Info(" FileLogSaver", "INFO log test!");
+            fileLogSaver.Debug(" FileLogSaver", "DEBUG log test!");
+            fileLogSaver.Warn(" FileLogSaver", "WARN log test!");
+            fileLogSaver.Fatal(" FileLogSaver", "FATAL log test!");
+            fileLogSaver.Error(" FileLogSaver", "ERROR log test!");
 
-
-            Assert.IsTrue(File.Exists(_logFilePath));
+            int lineCounter = 0;
+            using (var stream = File.Open(_logFilePath, FileMode.Open, FileAccess.Read))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    while (reader.ReadLine() != null)
+                    {
+                        lineCounter++;
+                    }
+                    reader.Close();
+                }
+            }
+            //FileInfo fileInfo = new FileInfo(_logFilePath);  
+            Assert.AreEqual(5, lineCounter);
         }
     }
 }

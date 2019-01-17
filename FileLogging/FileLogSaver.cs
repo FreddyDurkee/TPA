@@ -10,6 +10,7 @@ using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
 using Logging;
+using static log4net.Appender.FileAppender;
 
 namespace FileLogging
 {
@@ -40,18 +41,15 @@ namespace FileLogging
                 patternLayout.ConversionPattern = LOG_PATTERN;
                 patternLayout.ActivateOptions();
 
-                RollingFileAppender roller = new RollingFileAppender();
+                FileAppender roller = new FileAppender();
+                roller.LockingModel = new MinimalLock();
                 roller.AppendToFile = false;
                 roller.File = fileName;
                 roller.Layout = patternLayout;
-                roller.MaxSizeRollBackups = 5;
-                roller.MaximumFileSize = "1GB";
-                roller.RollingStyle = RollingFileAppender.RollingMode.Size;
-                roller.StaticLogFileName = true;
                 roller.ActivateOptions();
                 hierarchy.Root.AddAppender(roller);
 
-                hierarchy.Root.Level = Level.Info;
+                hierarchy.Root.Level = Level.All;
                 hierarchy.Configured = true;
         }
         #endregion
