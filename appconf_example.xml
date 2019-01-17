@@ -11,7 +11,7 @@
     <AssemblyCatalog>.</AssemblyCatalog>
     <AssemblyName>DbLogging.dll</AssemblyName>
 	<ConstructorArgs>
-      <DbLogSaver.ConnectionString>Data Source=.;Initial Catalog=TPADB;Integrated Security=True</DbLogSaver.ConnectionString>
+      <DbLogSaver.ConnectionString>Data Source=.;Initial Catalog=TPALoggingDB;Integrated Security=True</DbLogSaver.ConnectionString>
     </ConstructorArgs>
   </LoggerConfig>
 </ApplicationConfiguration>
