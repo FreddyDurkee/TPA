@@ -16,6 +16,11 @@ namespace Logging
             LogManager = new TPALogManager();
         }
         
+        public TPALogManager()
+        {
+            LogSaver = new EmptyLogger();
+        }
+
         [Import]
         public ILogSaver LogSaver { get; private set; }
 

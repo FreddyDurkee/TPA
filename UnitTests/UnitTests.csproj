@@ -40,6 +40,12 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -49,13 +55,21 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="CoreUnitTests.cs" />
+    <Compile Include="DbSerializerUnitTests.cs" />
+    <Compile Include="FileSerializerUnitTests.cs" />
+    <Compile Include="LogDbSerializationUnitTests.cs" />
+    <Compile Include="LogFileSerializationUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -63,10 +77,42 @@
       <Project>{e7e3152f-0cd2-4c1d-8ec5-1d9c272743f2}</Project>
       <Name>AppConfiguration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataTransferGraph\DataTransferGraph.csproj">
+      <Project>{3C59F35D-E996-4AD8-BA3D-DCA4AC8BEBA4}</Project>
+      <Name>DataTransferGraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbLogging\DbLogging.csproj">
+      <Project>{75d072b6-c44c-400a-92cb-5abdcb35c9f9}</Project>
+      <Name>DbLogging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbSerialize\DbSerialize.csproj">
+      <Project>{1F89588A-2881-4B82-8FAE-1B34438DF1B3}</Project>
+      <Name>DbSerialize</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileLogging\FileLogging.csproj">
+      <Project>{f8b3d6db-175e-46de-bc06-195fcd954fb8}</Project>
+      <Name>FileLogging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Serialize\Serialize.csproj">
+      <Project>{fb69e161-9b13-4201-9d21-886d828b17ad}</Project>
+      <Name>Serialize</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
       <Project>{ae36a566-0042-49d2-abbc-dd55a01f5be4}</Project>
       <Name>TPApplicationCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Instrumentation\logTestDatabase.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Instrumentation\library.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Instrumentation\testDatabase.mdf" />
+    <Content Include="Instrumentation\TPA.ApplicationArchitecture.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
