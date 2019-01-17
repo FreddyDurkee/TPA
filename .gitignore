@@ -36,7 +36,7 @@
 */Generated\ Files/
 
 # MSTest test Results
-*/[Tt]est[Rr]esult*/
+[Tt]est[Rr]esults/**
 */[Bb]uild[Ll]og.*
 
 # NUNIT
@@ -244,11 +244,6 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
-
-# SQL Server files
-*.mdf
-*.ldf
-*.ndf
 
 # Business Intelligence projects
 *.rdl.data

@@ -160,16 +160,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(TargetDir)\plugins
+    <PostBuildEvent>mkdir "$(TargetDir)\plugins"
 
-copy /y $(SolutionDir)\Serialize\$(OutDir)\Serialize.dll $(TargetDir)\plugins
-copy /y $(SolutionDir)\DbSerialize\$(OutDir)\DbSerialize.dll $(TargetDir)\plugins
+copy /y "$(SolutionDir)\Serialize\$(OutDir)\Serialize.dll" "$(TargetDir)\plugins"
+copy /y "$(SolutionDir)\DbSerialize\$(OutDir)\DbSerialize.dll" "$(TargetDir)\plugins"
 
-copy /y $(SolutionDir)\FileLogging\$(OutDir)\FileLogging.dll $(TargetDir)\plugins
-copy /y $(SolutionDir)\DbLogging\$(OutDir)\DbLogging.dll $(TargetDir)\plugins
+copy /y "$(SolutionDir)\FileLogging\$(OutDir)\FileLogging.dll" "$(TargetDir)\plugins"
+copy /y "$(SolutionDir)\DbLogging\$(OutDir)\DbLogging.dll" "$(TargetDir)\plugins"
 
 rem NuGet dependecies
-copy /y $(SolutionDir)\FileLogging\$(OutDir)\log4net.dll $(TargetDir)</PostBuildEvent>
+copy /y "$(SolutionDir)\FileLogging\$(OutDir)\log4net.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
