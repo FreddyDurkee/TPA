@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ApplicationConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SerializerConfig>
+    <AssemblyCatalog>.</AssemblyCatalog>
+    <AssemblyName>Serialize.dll</AssemblyName>
+	<ConstructorArgs>
+      <XMLSerializer.FileName>ser.xml</XMLSerializer.FileName>
+    </ConstructorArgs>
+  </SerializerConfig>
+  <LoggerConfig>
+    <AssemblyCatalog>.</AssemblyCatalog>
+    <AssemblyName>FileLogging.dll</AssemblyName>
+	<ConstructorArgs>
+      <FileLogSaver.FileName>app.log</FileLogSaver.FileName>
+    </ConstructorArgs>
+  </LoggerConfig>
+</ApplicationConfiguration>

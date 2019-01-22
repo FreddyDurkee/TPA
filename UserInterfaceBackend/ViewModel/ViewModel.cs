@@ -1,17 +1,17 @@
-﻿using System;
+﻿using AppConfiguration;
+using AppConfiguration.Model;
+using Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using TPApplicationCore.Model;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using TPApplicationCore.Serialization;
-using AppConfiguration;
-using AppConfiguration.Model;
-using Logging;
 
 namespace UIBackend.ViewModel
 {
@@ -157,6 +157,7 @@ namespace UIBackend.ViewModel
                 container.ComposeExportedValue(key, logConf.ConstructorArgs[key]);
             }
             container.ComposeParts(manager);
+            container.Dispose();
             return manager;
         }
         #endregion

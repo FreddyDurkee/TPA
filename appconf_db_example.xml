@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ApplicationConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SerializerConfig>
+    <AssemblyCatalog>.</AssemblyCatalog>
+    <AssemblyName>DbSerialize.dll</AssemblyName>
+	<ConstructorArgs>
+      <DBSerializer.ConnectionString>Data Source=.;Initial Catalog=TPALoggingDB;Integrated Security=True</DBSerializer.ConnectionString>
+    </ConstructorArgs>
+  </SerializerConfig>
+  <LoggerConfig>
+    <AssemblyCatalog>.</AssemblyCatalog>
+    <AssemblyName>DbLogging.dll</AssemblyName>
+	<ConstructorArgs>
+      <DbLogSaver.ConnectionString>Data Source=.;Initial Catalog=TPALoggingDB;Integrated Security=True</DbLogSaver.ConnectionString>
+    </ConstructorArgs>
+  </LoggerConfig>
+</ApplicationConfiguration>
