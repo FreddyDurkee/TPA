@@ -22,7 +22,7 @@ namespace FileLogging
         #endregion
 
         #region fields
-        private string fileName;
+        private readonly string fileName;
         #endregion
 
         #region init
@@ -41,13 +41,13 @@ namespace FileLogging
                 patternLayout.ConversionPattern = LOG_PATTERN;
                 patternLayout.ActivateOptions();
 
-                FileAppender roller = new FileAppender();
-                roller.LockingModel = new MinimalLock();
-                roller.AppendToFile = false;
-                roller.File = fileName;
-                roller.Layout = patternLayout;
-                roller.ActivateOptions();
-                hierarchy.Root.AddAppender(roller);
+                FileAppender fileAppender = new FileAppender();
+                fileAppender.LockingModel = new MinimalLock();
+                fileAppender.AppendToFile = false;
+                fileAppender.File = fileName;
+                fileAppender.Layout = patternLayout;
+                fileAppender.ActivateOptions();
+                hierarchy.Root.AddAppender(fileAppender);
 
                 hierarchy.Root.Level = Level.All;
                 hierarchy.Configured = true;

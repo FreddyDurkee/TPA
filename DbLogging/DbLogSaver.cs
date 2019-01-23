@@ -20,7 +20,7 @@ namespace DbLogging
         #endregion
 
         #region fields
-        private string _connectionString;
+        private readonly string _connectionString;
         #endregion
 
         #region init
@@ -73,38 +73,48 @@ namespace DbLogging
 
         private static void AddSqlParams(AdoNetAppender appender)
         {
-            AdoNetAppenderParameter dateParam = new AdoNetAppenderParameter();
-            dateParam.DbType = System.Data.DbType.DateTime;
-            dateParam.ParameterName = "@log_date";
-            dateParam.Layout = new RawTimeStampLayout();
+            AdoNetAppenderParameter dateParam = new AdoNetAppenderParameter
+            {
+                DbType = System.Data.DbType.DateTime,
+                ParameterName = "@log_date",
+                Layout = new RawTimeStampLayout()
+            };
             appender.AddParameter(dateParam);
 
-            AdoNetAppenderParameter thread = new AdoNetAppenderParameter();
-            thread.DbType = System.Data.DbType.String;
-            thread.Size = 255;
-            thread.ParameterName = "@thread";
-            thread.Layout = new Layout2RawLayoutAdapter(new PatternLayout("%thread"));
+            AdoNetAppenderParameter thread = new AdoNetAppenderParameter
+            {
+                DbType = System.Data.DbType.String,
+                Size = 255,
+                ParameterName = "@thread",
+                Layout = new Layout2RawLayoutAdapter(new PatternLayout("%thread"))
+            };
             appender.AddParameter(thread);
 
-            AdoNetAppenderParameter logLvl = new AdoNetAppenderParameter();
-            logLvl.DbType = System.Data.DbType.String;
-            logLvl.Size = 50;
-            logLvl.ParameterName = "@log_level";
-            logLvl.Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level"));
+            AdoNetAppenderParameter logLvl = new AdoNetAppenderParameter
+            {
+                DbType = System.Data.DbType.String,
+                Size = 50,
+                ParameterName = "@log_level",
+                Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level"))
+            };
             appender.AddParameter(logLvl);
 
-            AdoNetAppenderParameter logger = new AdoNetAppenderParameter();
-            logger.DbType = System.Data.DbType.String;
-            logger.Size = 255;
-            logger.ParameterName = "@logger";
-            logger.Layout = new Layout2RawLayoutAdapter(new PatternLayout("%logger"));
+            AdoNetAppenderParameter logger = new AdoNetAppenderParameter
+            {
+                DbType = System.Data.DbType.String,
+                Size = 255,
+                ParameterName = "@logger",
+                Layout = new Layout2RawLayoutAdapter(new PatternLayout("%logger"))
+            };
             appender.AddParameter(logger);
 
-            AdoNetAppenderParameter message = new AdoNetAppenderParameter();
-            message.DbType = System.Data.DbType.String;
-            message.Size = 4000;
-            message.ParameterName = "@message";
-            message.Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message"));
+            AdoNetAppenderParameter message = new AdoNetAppenderParameter
+            {
+                DbType = System.Data.DbType.String,
+                Size = 4000,
+                ParameterName = "@message",
+                Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message"))
+            };
             appender.AddParameter(message);
         }
         #endregion

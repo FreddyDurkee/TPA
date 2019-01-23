@@ -46,7 +46,6 @@
     <Compile Include="ILogSaver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TPALogger.cs" />
-    <Compile Include="TPALogManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

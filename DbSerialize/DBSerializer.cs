@@ -12,7 +12,7 @@ namespace DbSerialize
     public class DBSerializer : ISerializer
     {
         ModelToDBConverter converter = new ModelToDBConverter();
-        private string connectionString;
+        private readonly string connectionString;
 
         [ImportingConstructor]
         public DBSerializer([Import("DBSerializer.ConnectionString")] string connectionString)
@@ -20,7 +20,7 @@ namespace DbSerialize
             this.connectionString = connectionString;
         }
 
-        public AssemblyDTG deserialize()
+        public AssemblyDTG Deserialize()
         {
             int modelId = 1;
             using (var ctx = new SerializationContext(connectionString, false))
@@ -42,7 +42,7 @@ namespace DbSerialize
             }
         }
 
-        public void serialize(AssemblyDTG obj)
+        public void Serialize(AssemblyDTG obj)
         {
             using (var ctx = new SerializationContext(connectionString, true))
             {

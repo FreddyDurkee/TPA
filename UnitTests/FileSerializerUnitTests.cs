@@ -26,9 +26,9 @@ namespace UnitTests
             AssemblyMetadata assembly = new AssemblyMetadata(_DllPath);
             SerializationManager serializationManager = new SerializationManager();
             serializationManager.Serializer = new XMLSerializer("xmlSerialization.xml");
-            serializationManager.serialize(assembly);
+            serializationManager.Serialize(assembly);
 
-            Assert.IsNotNull(serializationManager.deserialize());
+            Assert.IsNotNull(serializationManager.Deserialize());
 
         }
     }

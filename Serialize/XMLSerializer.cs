@@ -13,7 +13,7 @@ namespace Serialize
     public class XMLSerializer : ISerializer
     {
         ModelToXMLConverter converter = new ModelToXMLConverter();
-        private string filePath;
+        private readonly string filePath;
 
         [ImportingConstructor]
         public XMLSerializer([Import("XMLSerializer.FileName")] string fileName)
@@ -21,7 +21,7 @@ namespace Serialize
             this.filePath = fileName;
         }
 
-        public AssemblyDTG deserialize()
+        public AssemblyDTG Deserialize()
         {
             FileStream fs = new FileStream(filePath, FileMode.Open);
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, XmlDictionaryReaderQuotas.Max);
@@ -31,7 +31,7 @@ namespace Serialize
             return converter.FromDTO(xmlModel);
         }
 
-        public void serialize(AssemblyDTG obj)
+        public void Serialize(AssemblyDTG obj)
         {
             AssemblyXmlModel xmlModel = converter.ToDTO(obj);
             FileStream fs = new FileStream(filePath, FileMode.Create);

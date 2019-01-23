@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TPApplicationCore;
 
 namespace GUIApplication
@@ -11,7 +12,15 @@ namespace GUIApplication
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            ApplicationContext.Init();
+            try
+            {
+                ApplicationContext.Init();
+            }
+            catch (Exception ex)
+            {
+               Console.WriteLine(ex.StackTrace);
+            }
+            
         }
         protected override void OnExit(ExitEventArgs e)
         {

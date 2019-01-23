@@ -55,7 +55,7 @@ namespace TPApplicationCore.Model
         public AssemblyMetadata(string assemblyFile)
         {
             typeList = new Dictionary<string,TypeMetadata>();
-            Type[] typy = Assembly.LoadFrom(assemblyFile).GetTypes();
+            Type[] typy = Assembly.ReflectionOnlyLoadFrom(assemblyFile).GetTypes();
             string filename = Path.GetFileName(assemblyFile);
             name = filename.Substring(0, filename.Length - 4);
             foreach (Type t in typy)
@@ -219,14 +219,14 @@ namespace TPApplicationCore.Model
         {
             ApplicationContext context = ApplicationContext.CONTEXT;
             SerializationManager manager = context.SerializationManager;
-            manager.serialize(this);
+            manager.Serialize(this);
         }
         
         public static AssemblyMetadata Deserialize()
         {
             ApplicationContext context = ApplicationContext.CONTEXT;
             SerializationManager manager = context.SerializationManager;
-            return manager.deserialize();
+            return manager.Deserialize();
         }
     }
 }

@@ -18,7 +18,17 @@ namespace TPApplicationCore
         public static readonly ApplicationContext CONTEXT;
 
         static ApplicationContext(){
-            CONTEXT = new ApplicationContext();
+            try
+            {
+                CONTEXT = new ApplicationContext();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                //Shutdown app
+                throw ex;
+            }
+
         }
 
         public SerializationManager SerializationManager { get; private set; }
@@ -29,6 +39,7 @@ namespace TPApplicationCore
         private ApplicationContext()
         {
             AppConfManager = new ConfigurationManager(@"./appconf.xml");
+            SerializationManager = new SerializationManager();
             LogContext = new LogContext();
             ReloadContext();
             AppConfManager.SubscribeConfigurationChange(new FileSystemEventHandler(OnConfigChange));

@@ -1,12 +1,10 @@
-﻿using Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using TPApplicationCore;
 using TPApplicationCore.Model;
 
 namespace UIBackend.ViewModel
@@ -15,8 +13,6 @@ namespace UIBackend.ViewModel
     {
 
         #region DataContext
-        private static TPALogger LOGGER = ApplicationContext.GetLogger(typeof(ViewModel));
-
         public System.Collections.ObjectModel.ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         private Dictionary<string, AssemblyMetadata> connectedModels;
         public string PathVariable { get; set; }
@@ -97,7 +93,6 @@ namespace UIBackend.ViewModel
         private void TreeViewLoaded(AssemblyMetadata model)
         {
             TreeViewItem rootItem = new TreeViewItem(model,true) { Name = model.name };
-            LOGGER.Info( "New model loaded:" + rootItem.Name);
             HierarchicalAreas.Add(rootItem);
             if (!connectedModels.ContainsKey(model.name))
             {

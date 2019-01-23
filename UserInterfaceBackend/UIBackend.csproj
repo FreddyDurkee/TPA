@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelAPI\ITreeViewItem.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\IBrowser.cs" />
     <Compile Include="ViewModel\SimpleBrowser.cs" />
@@ -62,10 +61,6 @@
     <Compile Include="ViewModel\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{8dd1318d-ea8a-4004-b0fa-7dc2715c84e9}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
       <Project>{ae36a566-0042-49d2-abbc-dd55a01f5be4}</Project>
       <Name>TPApplicationCore</Name>
