@@ -13,40 +13,40 @@ namespace AppConfiguration
 {
     public class ConfigurationManager
     {
-        private string confPath;
-        private FileSystemWatcher fileWatcher;
+        private string ConfPath;
+        private FileSystemWatcher FileWatcher;
 
         public ConfigurationManager(string confPath)
         {
-            this.confPath = confPath;
+            this.ConfPath = confPath;
           
-            fileWatcher = new FileSystemWatcher(Path.GetDirectoryName(confPath));
-            fileWatcher.Filter = Path.GetFileName(confPath);
-            fileWatcher.NotifyFilter = NotifyFilters.LastWrite;
-            fileWatcher.EnableRaisingEvents = true;
+            FileWatcher = new FileSystemWatcher(Path.GetDirectoryName(confPath));
+            FileWatcher.Filter = Path.GetFileName(confPath);
+            FileWatcher.NotifyFilter = NotifyFilters.LastWrite;
+            FileWatcher.EnableRaisingEvents = true;
         }
 
-        public ApplicationConfiguration getApplicationConfiguration()
+        public ApplicationConfiguration GetApplicationConfiguration()
         {
-            using (FileStream fs = new FileStream(confPath, FileMode.Open)) {
+            using (FileStream fs = new FileStream(ConfPath, FileMode.Open)) {
                 XmlSerializer ser = new XmlSerializer(typeof(ApplicationConfiguration));
                 return (ApplicationConfiguration)ser.Deserialize(fs);
             }
         }
 
-        public SerializerConfig getSerializerConfig()
+        public SerializerConfig GetSerializerConfig()
         {
-            return getApplicationConfiguration().SerializerConfig;
+            return GetApplicationConfiguration().SerializerConfig;
         }
 
-        public LoggerConfig getLoggerConfig()
+        public LoggerConfig GetLoggerConfig()
         {
-            return getApplicationConfiguration().LoggerConfig;
+            return GetApplicationConfiguration().LoggerConfig;
         }
 
-        public void subscribeConfigurationChange(FileSystemEventHandler fileChangeHandler)
+        public void SubscribeConfigurationChange(FileSystemEventHandler fileChangeHandler)
         {
-            fileWatcher.Changed += fileChangeHandler;
+            FileWatcher.Changed += fileChangeHandler;
         }
     }
 }

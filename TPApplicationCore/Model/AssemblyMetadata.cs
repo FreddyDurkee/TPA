@@ -5,12 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using Logging;
+using TPApplicationCore.Serialization;
 
 namespace TPApplicationCore.Model
 {
     public class AssemblyMetadata
     {
-        private static TPALogger LOGGER = new TPALogger(typeof(AssemblyMetadata));
+        private static TPALogger LOGGER = ApplicationContext.GetLogger(typeof(AssemblyMetadata));
 
         private Dictionary<string,TypeMetadata> typeList;
 
@@ -212,6 +213,20 @@ namespace TPApplicationCore.Model
         public TypeMetadata getType(PropertyMetadata property)
         {
             return property.getType();
+        }
+
+        public void Serialize()
+        {
+            ApplicationContext context = ApplicationContext.CONTEXT;
+            SerializationManager manager = context.SerializationManager;
+            manager.serialize(this);
+        }
+        
+        public static AssemblyMetadata Deserialize()
+        {
+            ApplicationContext context = ApplicationContext.CONTEXT;
+            SerializationManager manager = context.SerializationManager;
+            return manager.deserialize();
         }
     }
 }

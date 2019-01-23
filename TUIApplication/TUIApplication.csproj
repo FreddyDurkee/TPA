@@ -66,6 +66,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TPApplicationCore\TPApplicationCore.csproj">
+      <Project>{AE36A566-0042-49D2-ABBC-DD55A01F5BE4}</Project>
+      <Name>TPApplicationCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UserInterfaceBackend\UIBackend.csproj">
       <Project>{fdd7bff4-92d9-4d61-bcdf-3f6a045d9ed0}</Project>
       <Name>UIBackend</Name>

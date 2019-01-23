@@ -9,35 +9,37 @@ namespace Logging
     public class TPALogger
     {
         private readonly string loggerName;
+        private readonly ILogContextProvider contextProvider;
 
-        public TPALogger(Type loggerClass)
+        public TPALogger(Type loggerClass, ILogContextProvider contextProvider)
         {
             this.loggerName = loggerClass.FullName;
+            this.contextProvider = contextProvider;
         }
 
         public void Debug(string message)
         {
-            TPALogManager.LogManager.LogSaver.Debug(loggerName, message);
+            contextProvider.GetTPALogSaver().Debug(loggerName, message);
         }
 
         public void Error(string message)
         {
-            TPALogManager.LogManager.LogSaver.Error(loggerName, message);
+            contextProvider.GetTPALogSaver().Error(loggerName, message);
         }
 
         public void Fatal(string message)
         {
-            TPALogManager.LogManager.LogSaver.Fatal(loggerName, message);
+            contextProvider.GetTPALogSaver().Fatal(loggerName, message);
         }
 
         public void Info(string message)
         {
-            TPALogManager.LogManager.LogSaver.Info(loggerName, message);
+            contextProvider.GetTPALogSaver().Info(loggerName, message);
         }
 
         public void Warn(string message)
         {
-            TPALogManager.LogManager.LogSaver.Warn(loggerName, message);
+            contextProvider.GetTPALogSaver().Warn(loggerName, message);
         }
     }
 }

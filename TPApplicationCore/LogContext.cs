@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.Composition;
+﻿using Logging;
+using System.ComponentModel.Composition;
 
-namespace Logging
+namespace TPApplicationCore
 {
     public class LogContext
     {

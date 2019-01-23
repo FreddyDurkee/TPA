@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logging
 {
-    class EmptyLogger : ILogSaver
+    public class EmptyLogger : ILogSaver
     {
         public void Debug(string loggerName, string message)
         {
