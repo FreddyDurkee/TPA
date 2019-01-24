@@ -20,6 +20,11 @@ namespace TPApplicationCore.Serialization
 
         private ModelToDTGConverter converter = new ModelToDTGConverter();
 
+        public SerializationManager()
+        {
+            Serializer = new EmptySerializer();
+        }
+
         public void Serialize(AssemblyMetadata data)
         {
             Serializer.Serialize(converter.ToDTG(data));

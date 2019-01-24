@@ -106,9 +106,6 @@
     <Content Include="Instrumentation\logTestDatabase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Instrumentation\library.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Instrumentation\testDatabase.mdf" />
     <Content Include="Instrumentation\TPA.ApplicationArchitecture.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

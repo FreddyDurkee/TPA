@@ -6,13 +6,13 @@ using TPApplicationCore.Model;
 namespace UnitTests
 {
     [TestClass]
-    [DeploymentItem(@"Instrumentation\library.dll", @"Instrumentation")]
+    [DeploymentItem(@"Instrumentation\TPA.ApplicationArchitecture.dll", @"Instrumentation")]
     public class CoreUnitTests
     {
         [TestMethod]
         public void Should_ReturnFalse_When_DLLFileIsUnproperlyLoaded()
         {
-            string _DBRelativePath = @"Instrumentation\library.dll";
+            string _DBRelativePath = @"Instrumentation\TPA.ApplicationArchitecture.dll";
             string _TestingWorkingFolder = Environment.CurrentDirectory;
             string _DllPath = Path.Combine(_TestingWorkingFolder, _DBRelativePath);
 
@@ -25,7 +25,7 @@ namespace UnitTests
         public void Should_Pass_When_LoadedFileIsDLL()
         {
 
-            string _DBRelativePath = @"Instrumentation\library.dll";
+            string _DBRelativePath = @"Instrumentation\TPA.ApplicationArchitecture.dll";
             string _TestingWorkingFolder = Environment.CurrentDirectory;
             string _DllPath = Path.Combine(_TestingWorkingFolder, _DBRelativePath);
             AssemblyMetadata test = new AssemblyMetadata(_DllPath);
@@ -33,19 +33,19 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Should_5_BeEqualNumberOfTypes()
+        public void Should_20_BeEqualNumberOfTypes()
         {
-            string _DBRelativePath = @"Instrumentation\library.dll";
+            string _DBRelativePath = @"Instrumentation\TPA.ApplicationArchitecture.dll";
             string _TestingWorkingFolder = Environment.CurrentDirectory;
             string _DllPath = Path.Combine(_TestingWorkingFolder, _DBRelativePath);
             AssemblyMetadata test = new AssemblyMetadata(_DllPath);
-            Assert.AreEqual(5, test.typesList.Count);
+            Assert.AreEqual(20, test.typesList.Count);
         }
 
         [TestMethod]
         public void Should_1_BeEqualNumberOfPropertiesForTypeServiceA()
         {
-            string _DBRelativePath = @"Instrumentation\library.dll";
+            string _DBRelativePath = @"Instrumentation\TPA.ApplicationArchitecture.dll";
             string _TestingWorkingFolder = Environment.CurrentDirectory;
             string _DllPath = Path.Combine(_TestingWorkingFolder, _DBRelativePath);
             AssemblyMetadata test = new AssemblyMetadata(_DllPath);

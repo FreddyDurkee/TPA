@@ -1,5 +1,6 @@
 ﻿using AppConfiguration;
 using AppConfiguration.Model;
+using DataTransferGraph.Api;
 using Logging;
 using System;
 using System.Collections.Generic;
@@ -15,34 +16,21 @@ namespace TPApplicationCore
 {
     public class ApplicationContext : IDisposable, ILogContextProvider
     {
-        public static readonly ApplicationContext CONTEXT;
+        public static readonly ApplicationContext CONTEXT = new ApplicationContext();
 
-        static ApplicationContext(){
-            try
-            {
-                CONTEXT = new ApplicationContext();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-                //Shutdown app
-                throw ex;
-            }
-
-        }
-
+      
         public SerializationManager SerializationManager { get; private set; }
         public LogContext LogContext { get; private set; }
+
+        public bool IsInitialized { get; set; }
         private ConfigurationManager AppConfManager;
         private CompositionContainer container;
 
         private ApplicationContext()
         {
-            AppConfManager = new ConfigurationManager(@"./appconf.xml");
             SerializationManager = new SerializationManager();
             LogContext = new LogContext();
-            ReloadContext();
-            AppConfManager.SubscribeConfigurationChange(new FileSystemEventHandler(OnConfigChange));
+            IsInitialized = false;
         }
 
         private void OnConfigChange(object sender, FileSystemEventArgs e)
@@ -70,6 +58,17 @@ namespace TPApplicationCore
             container.ComposeParts(SerializationManager);
             container.ComposeParts(LogContext);
         }
+        private void Init(string configPath)
+        {
+            if (IsInitialized)
+            {
+                throw new InvalidOperationException("Context already initialized.");
+            }
+            AppConfManager = new ConfigurationManager(configPath);
+            ReloadContext();
+            AppConfManager.SubscribeConfigurationChange(new FileSystemEventHandler(OnConfigChange));
+            IsInitialized = true;
+        }
 
 
         #region IDisposable
@@ -89,7 +88,7 @@ namespace TPApplicationCore
         #region static_methods
         public static void Init()
         {
-            //Do nothing. Just force static block.
+            CONTEXT.Init(@"./appconf.xml");
         }
 
         public static TPALogger GetLogger(Type loggerClass)
