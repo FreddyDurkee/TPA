@@ -13,7 +13,7 @@ namespace TPApplicationCore.Converter
             Dictionary<TypeMetadata, TypeDTG> mapper = new Dictionary<TypeMetadata, TypeDTG>();
             foreach (TypeMetadata type in obj.getTypes())
             {
-                TypeDTG dtgType = new TypeDTG(type.getName());
+                TypeDTG dtgType = new TypeDTG(type.getName(), type.getNamespaceDef());
                 mapper.Add(type, dtgType);
                 dtgModel.Types.Add(dtgType);
             }
@@ -78,7 +78,7 @@ namespace TPApplicationCore.Converter
             }
             else
             {
-                model = new TypeDTG(type.getName());
+                model = new TypeDTG(type.getName(),type.getNamespaceDef());
                 unknownTypes.Add(type.getName(), model);
                 return model;
             }
@@ -92,7 +92,7 @@ namespace TPApplicationCore.Converter
 
             foreach (TypeDTG dtgType in dtg.Types)
             {
-                TypeMetadata type = new TypeMetadata(dtgType.Name);
+                TypeMetadata type = new TypeMetadata(dtgType.Name,dtgType.NamespaceDef);
                 mapper.Add(dtgType, type);
                 types.Add(type.getName(), type);
             }
@@ -156,7 +156,7 @@ namespace TPApplicationCore.Converter
             }
             else
             {
-                model = new TypeMetadata(type.Name);
+                model = new TypeMetadata(type.Name,type.NamespaceDef);
                 unknownTypes.Add(type.Name, model);
                 return model;
             }

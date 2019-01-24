@@ -34,7 +34,7 @@ namespace UIBackend.ViewModel
         public TreeViewType(AssemblyMetadata model, TypeMetadata reflectionReference) : base(model, reflectionReference.anyChildren())
         {
             this.reflectionReference = reflectionReference;
-            Name = "c:  " + reflectionReference.getName();
+            Name = "c:  [" + reflectionReference.getNamespaceDef() + "]" + reflectionReference.getName();
         }
       
     }

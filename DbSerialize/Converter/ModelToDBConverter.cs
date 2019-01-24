@@ -13,7 +13,7 @@ namespace DbSerialize.Converter
             Dictionary<TypeDTG, TypeDbModel> mapper = new Dictionary<TypeDTG, TypeDbModel>();
             foreach (TypeDTG type in obj.Types)
             {
-              TypeDbModel dbType = new TypeDbModel(type.Name,true);
+              TypeDbModel dbType = new TypeDbModel(type.Name,type.NamespaceDef,true);
               mapper.Add(type, dbType);
               dbAssamblyModel.Types.Add(dbType);
             }
@@ -86,7 +86,7 @@ namespace DbSerialize.Converter
             }
             else
             {
-                model = new TypeDbModel(type.Name,false);
+                model = new TypeDbModel(type.Name,type.NamespaceDef,false);
                 unknownTypes.Add(type.Name, model);
                 return model;
             }
@@ -104,7 +104,7 @@ namespace DbSerialize.Converter
 
             foreach (TypeDbModel dbType in dto.Types)
             {
-                TypeDTG type = new TypeDTG(dbType.Name);
+                TypeDTG type = new TypeDTG(dbType.Name,dbType.NamespaceDef);
                 mapper.Add(dbType, type);
                 if (dbType.isDefined)
                 {

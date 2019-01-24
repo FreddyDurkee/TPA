@@ -13,7 +13,7 @@ namespace Serialize.Converter
             Dictionary<TypeDTG, TypeXmlModel> mapper = new Dictionary<TypeDTG, TypeXmlModel>();
             foreach (TypeDTG type in obj.Types)
             {
-              TypeXmlModel xmlType = new TypeXmlModel(type.Name);
+              TypeXmlModel xmlType = new TypeXmlModel(type.Name,type.NamespaceDef);
               mapper.Add(type, xmlType);
                 xmlModel.typeList.Add(xmlType);
             }
@@ -78,7 +78,7 @@ namespace Serialize.Converter
             }
             else
             {
-                model = new TypeXmlModel(type.Name);
+                model = new TypeXmlModel(type.Name,type.NamespaceDef);
                 unknownTypes.Add(type.Name, model);
                 return model;
             }
@@ -97,7 +97,7 @@ namespace Serialize.Converter
             }
             else
             {
-                model = new TypeDTG(type.name);
+                model = new TypeDTG(type.name,type.NamespaceDef);
                 unknownTypes.Add(type.name, model);
                 return model;
             }
@@ -110,7 +110,7 @@ namespace Serialize.Converter
 
             foreach (TypeXmlModel xmlType in dto.typeList)
             {
-                TypeDTG type = new TypeDTG(xmlType.name);
+                TypeDTG type = new TypeDTG(xmlType.name, xmlType.NamespaceDef);
                 mapper.Add(xmlType, type);
                 assembly.Types.Add(type);
             }

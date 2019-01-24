@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 
 namespace TPApplicationCore.Model
-
 {
     public class TypeMetadata
     {
@@ -16,20 +15,27 @@ namespace TPApplicationCore.Model
         private List<PropertyMetadata> properties;
         private List<FieldMetadata> fields;
         private string name;
+        private string namespaceDef;
         #endregion
 
 
-        public TypeMetadata(string name)
+        public TypeMetadata(string name,string namespaceDef)
         {
             methods = new List<MethodMetadata>();
             properties = new List<PropertyMetadata>();
             fields = new List<FieldMetadata>();
             this.name = name;
+            this.namespaceDef = namespaceDef;
         }
 
         public string getName()
         {
             return name;
+        }
+
+        public string getNamespaceDef()
+        {
+            return namespaceDef;
         }
 
         public List<MethodMetadata> getMethodsList()

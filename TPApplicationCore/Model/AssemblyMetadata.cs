@@ -60,7 +60,7 @@ namespace TPApplicationCore.Model
             name = filename.Substring(0, filename.Length - 4);
             foreach (Type t in typy)
             {
-                TypeMetadata typeMetadata = new TypeMetadata(t.Name);
+                TypeMetadata typeMetadata = new TypeMetadata(t.Name,t.Namespace);
                 typeList.Add(t.Name, typeMetadata);
             }
             foreach (Type t in typy)
@@ -102,7 +102,7 @@ namespace TPApplicationCore.Model
                 else
                 {
                     LOGGER.Info( "Class not found, creating: " + index.ReturnType.Name);
-                    typeObj = new TypeMetadata(index.ReturnType.Name);
+                    typeObj = new TypeMetadata(index.ReturnType.Name, index.ReturnType.Namespace);
                     metoda = new MethodMetadata(index.Name, typeObj);
                 }
                 typeMetadata.getMethodsList().Add(metoda);
@@ -124,7 +124,7 @@ namespace TPApplicationCore.Model
                 else
                 {
                     LOGGER.Info( "Class not found, creating: " + index.ReturnType.Name);
-                    typeMetadata = new TypeMetadata(index.ReturnType.Name);
+                    typeMetadata = new TypeMetadata(index.ReturnType.Name, index.ReturnType.Namespace);
                     method = new MethodMetadata(index.Name, typeMetadata);
                 }
                 buildParameters(method, index);
@@ -145,7 +145,7 @@ namespace TPApplicationCore.Model
                 else
                 {
                     LOGGER.Info( "Class not found, creating: " + f.FieldType.Name);
-                    typeObj = new TypeMetadata(f.FieldType.Name);
+                    typeObj = new TypeMetadata(f.FieldType.Name,f.FieldType.Namespace);
                     field = new FieldMetadata(f.Name, typeObj);
                 }
                 typeMetadata.getFieldsList().Add(field);
@@ -167,7 +167,7 @@ namespace TPApplicationCore.Model
                 else
                 {
                     LOGGER.Info( "Class not found, creating: " + p.PropertyType.Name);
-                    typeObj = new TypeMetadata(p.PropertyType.Name);
+                    typeObj = new TypeMetadata(p.PropertyType.Name, p.PropertyType.Namespace);
                     property = new PropertyMetadata(p.Name, typeObj);
                 }
                 buildMethods(property, p);
@@ -188,7 +188,7 @@ namespace TPApplicationCore.Model
                 else
                 {
                     LOGGER.Info( "Class not found, creating: " + p.ParameterType.Name);
-                    typeObj = new TypeMetadata(p.ParameterType.Name);
+                    typeObj = new TypeMetadata(p.ParameterType.Name, p.ParameterType.Namespace);
                     parameter = new ParameterMetadata(p.Name, typeObj);
                 }
                 method.getParameterList().Add(parameter);

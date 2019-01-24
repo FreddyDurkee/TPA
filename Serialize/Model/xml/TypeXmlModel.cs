@@ -11,9 +11,10 @@ namespace Serialize.Model.Xml
     [DataContract]
     public class TypeXmlModel
     {
-        public TypeXmlModel(string name)
+        public TypeXmlModel(string name, string namespaceDef)
         {
             this.name = name;
+            this.NamespaceDef = namespaceDef;
             methods = new List<MethodXmlModel>();
             fields = new List<FieldXmlModel>();
             properties = new List<PropertyXmlModel>();
@@ -27,6 +28,8 @@ namespace Serialize.Model.Xml
         public List<FieldXmlModel> fields { get; set; }
         [DataMember]
         public string name { get; set; }
+        [DataMember]
+        public string NamespaceDef { get; internal set; }
         #endregion
     }
 }
