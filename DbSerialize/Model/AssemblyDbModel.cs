@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbSerialize.Model
 {
@@ -21,6 +21,7 @@ namespace DbSerialize.Model
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public List<TypeDbModel> Types { get; set; }
         public List<FieldDbModel> Fields { get; set; }

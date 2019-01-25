@@ -58,12 +58,23 @@ namespace DbSerialize
             public SerializationContext(string connectionString,bool reset):base(connectionString)
             {
                 if (reset) {
-                    Database.Delete();
+                    Fields.RemoveRange(Fields);
+                    Methods.RemoveRange(Methods);
+                    Parameters.RemoveRange(Parameters);
+                    Properties.RemoveRange(Properties);
+                    Types.RemoveRange(Types);
+                    Assemblies.RemoveRange(Assemblies);
+                    SaveChanges();
                 }
                 
             }
 
             public DbSet<AssemblyDbModel> Assemblies { get; set; }
+            public DbSet<FieldDbModel> Fields { get; set; }
+            public DbSet<MethodDbModel> Methods { get; set; }
+            public DbSet<ParameterDbModel> Parameters { get; set; }
+            public DbSet<PropertyDbModel> Properties { get; set; }
+            public DbSet<TypeDbModel> Types { get; set; }
  
             protected override void OnModelCreating(DbModelBuilder modelBuilder)
             {

@@ -171,7 +171,11 @@ copy /y "$(SolutionDir)\FileLogging\$(OutDir)\FileLogging.dll" "$(TargetDir)"
 copy /y "$(SolutionDir)\DbLogging\$(OutDir)\DbLogging.dll" "$(TargetDir)"
 
 rem NuGet dependecies
-copy /y "$(SolutionDir)\FileLogging\$(OutDir)\log4net.dll" "$(TargetDir)"</PostBuildEvent>
+copy /y "$(SolutionDir)\FileLogging\$(OutDir)\log4net.dll" "$(TargetDir)"
+
+rem Database
+copy /y "$(SolutionDir)\Databases\TPADatabase.mdf" "$(TargetDir)"
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
